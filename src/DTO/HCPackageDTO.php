@@ -42,4 +42,12 @@ class HCPackageDTO
     {
         return $this->data;
     }
+
+    /**
+     * @return array
+     */
+    public function getFolderList(): array
+    {
+        return $this->data['folders'];
+    }
 }
