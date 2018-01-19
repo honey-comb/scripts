@@ -72,6 +72,7 @@ class HCMakePackage extends Command
         $this->config = new HCPackageDTO($this->getConfiguration());
 
         $this->finalizeConfig();
+        $this->createStructure();
     }
 
     /**
@@ -149,5 +150,14 @@ class HCMakePackage extends Command
         }
     }
 
+    /**
+     * Creating structure for new package
+     */
+    private function createStructure()
+    {
+        foreach ($this->config->getFolderList() as $folder) {
+            $this->info('Creating folder: ' . $this->rootDirectory . '/' . $this->config->packageName . '/' . $folder);
+            $this->helper->createDirectory($this->rootDirectory . '/' . $this->config->packageName . '/' . $folder);
+        }
     }
 }
