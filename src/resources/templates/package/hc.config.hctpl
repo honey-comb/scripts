@@ -1,0 +1,14 @@
+{
+    "general": {
+        "packageName": "{packageName}",
+        "sequence": 0,
+        "namespace": "{namespaceComposer}"
+    },
+    "formData": {},
+    "adminMenu": [],
+    "seeder": "",
+    "routes": [],
+    "acl": {
+        "permissions": []
+    }
+}
