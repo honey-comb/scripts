@@ -1,0 +1,50 @@
+{
+  "name": "honey-comb/scripts",
+  "description": "HoneyComb scripts",
+  "keywords": ["honeycomb", "honey", "laravel", "cms"],
+  "homepage": "https://github.com/honey-comb/scripts/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mantas Paulauskas",
+      "email": "mp@interactivesolutions.lt"
+    },
+    {
+      "name": "Jevgenij Dmitrijev",
+      "email": "jd@interactivesolutions.lt"
+    },
+    {
+      "name": "Vytautas Rimeikis",
+      "email": "vytautas.rimeikis@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "laravel/framework": "5.5.*",
+    "honey-comb/core": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "HoneyComb\\Core\\": "src/"
+    },
+    "files": [
+      "src/Helpers/helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": [
+      "paratest -p4 --colors"
+    ]
+  },
+  "config": {
+    "secure-http": false,
+    "platform": {
+      "php": "7.1"
+    }
+  }
+}
