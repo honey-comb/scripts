@@ -67,4 +67,26 @@ class HCScriptsHelper
 
         return array_diff($this->toReplace, $ignoreSymbols);
     }
+
+    /**
+     * Replace file
+     * @param string $destination
+     * @param string $templateLocation
+     * @param array $content
+     */
+    public function createFileFromTemplate(string $destination, string $templateLocation, array $content)
+    {
+        $destination = replaceBrackets($destination, $content);
+
+        $template = file_get_contents(__DIR__ . '/../resources/templates/' . $templateLocation);
+
+        $template = replaceBrackets($template, $content);
+
+        $directory = array_filter(explode('/', $destination));
+        array_pop($directory);
+        $directory = implode('/', $directory);
+
+        $this->createDirectory($directory);
+        file_put_contents($destination, $template);
+    }
 }
