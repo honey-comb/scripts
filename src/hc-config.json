@@ -1,0 +1,14 @@
+{
+    "general": {
+        "packageName": "HCScripts",
+        "sequence": 0,
+        "namespace": "HoneyComb\\Scripts"
+    },
+    "formData": {},
+    "adminMenu": [],
+    "seeder": "",
+    "routes": [],
+    "acl": {
+        "permissions": []
+    }
+}
