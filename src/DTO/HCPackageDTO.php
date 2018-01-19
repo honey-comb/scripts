@@ -2,7 +2,9 @@
 
 namespace HoneyComb\Scripts\DTO;
 
-class HCPackageDTO
+use HoneyComb\Core\DTO\HCBaseDTO;
+
+class HCPackageDTO extends HCBaseDTO
 {
     /**
      * @var array
@@ -12,7 +14,7 @@ class HCPackageDTO
     /**
      * @var string
      */
-    public $packageName;
+    public $packagePath;
 
     /**
      * @var string
@@ -23,6 +25,11 @@ class HCPackageDTO
      * @var string
      */
     public $namespaceComposer;
+
+    /**
+     * @var string
+     */
+    public $packageName;
 
     /**
      * HCPackageDTO constructor.
@@ -49,5 +56,21 @@ class HCPackageDTO
     public function getFolderList(): array
     {
         return $this->data['folders'];
+    }
+
+    /**
+     * @return array
+     */
+    public function getFilesList(): array
+    {
+        return $this->data['files'];
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonData(): array
+    {
+        return get_object_vars ($this);
     }
 }
