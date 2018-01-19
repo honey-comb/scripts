@@ -73,6 +73,7 @@ class HCMakePackage extends Command
 
         $this->finalizeConfig();
         $this->createStructure();
+        $this->createFiles();
     }
 
     /**
@@ -100,13 +101,17 @@ class HCMakePackage extends Command
             $this->helper->abort('You must create your package directory first. .i.e.: honey-comb/package-name inside ' . $this->rootDirectory . ' directory');
         }
 
+        // selecting package directory
         $packageDirectory = $this->choice('Please select package directory', $directoryList);
 
         // setting package name
-        $this->config->packageName = str_replace($this->rootDirectory . '/', '', $packageDirectory);
+        $this->config->packageName = $this->ask('Please enter package name');
+
+        // setting package name
+        $this->config->packagePath = str_replace($this->rootDirectory . '/', '', $packageDirectory);
 
         // formatting string with proper uppercase
-        $upperCaseFormat = ucwords($this->config->packageName, "/-");
+        $upperCaseFormat = ucwords($this->config->packagePath, "/-");
 
         // setting package namespace
         $this->config->namespace = $this->helper->stringOnly(str_replace('/', '\\', $upperCaseFormat));
@@ -156,8 +161,17 @@ class HCMakePackage extends Command
     private function createStructure()
     {
         foreach ($this->config->getFolderList() as $folder) {
-            $this->info('Creating folder: ' . $this->rootDirectory . '/' . $this->config->packageName . '/' . $folder);
-            $this->helper->createDirectory($this->rootDirectory . '/' . $this->config->packageName . '/' . $folder);
+            $this->helper->createDirectory($this->rootDirectory . '/' . $this->config->packagePath . '/' . $folder);
+        }
+    }
+
+    /**
+     * Creating files
+     */
+    private function createFiles()
+    {
+        foreach ($this->config->getFilesList() as $key => $value) {
+            $this->helper->createFileFromTemplate($this->rootDirectory . '/' . $key, $value, $this->config->jsonData());
         }
     }
 }
