@@ -144,8 +144,10 @@ class HCMakePackage extends Command
      */
     private function validateConfig(array $config)
     {
-        if (!isset($config['folders']))
+        if (!isset($config['folders'])) {
             $this->helper->abort('No folders to create');
+        }
+    }
 
     }
 }
