@@ -71,10 +71,16 @@ class HCMakePackage extends Command
     {
         $this->config = new HCPackageDTO($this->getConfiguration());
 
-        $this->getDirectory();
+        $this->finalizeConfig();
     }
 
-    private function getDirectory()
+    /**
+     * Finalizing configuration
+     *
+     * @throws \Exception
+     * @throws \Symfony\Component\Console\Exception\InvalidArgumentException
+     */
+    private function finalizeConfig()
     {
         $directoryList = [];
 
