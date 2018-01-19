@@ -34,5 +34,12 @@
     "src/Routes/Public",
     "src/Services",
     "src/Tests"
-  ]
+  ],
+  "files": {
+    "{packagePath}/src/Helpers/helpers.php": "shared/empty.hctpl",
+    "{packagePath}/src/.gitignore": "package/gitignore.hctpl",
+    "{packagePath}/composer.json": "package/composer.hctpl",
+    "{packagePath}/src/Providers/{packageName}ServiceProvider.php": "package/service.provider.hctpl",
+    "{packagePath}/src/database/seeds/{packageName}Seeder.php": "package/database.seeder.hctpl"
+  }
 }
