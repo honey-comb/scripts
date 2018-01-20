@@ -1,0 +1,9 @@
+Route::get('/', '{serviceName}Controller@getListPaginate')
+                ->name('admin.api.{routePrefix}.paginate')
+                ->middleware('acl:{aclPrefix}_admin_list');
+
+
+Route::get('list', '{serviceName}Controller@getList')
+                    ->name('admin.api.{routePrefix}.list')
+                    ->middleware('acl:{aclPrefix}_admin_list');
+

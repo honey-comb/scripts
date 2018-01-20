@@ -1,0 +1,4 @@
+Route::get('/', '{serviceName}Controller@getById')
+    ->name('admin.api.{routePrefix}.single')
+    ->middleware('acl:{aclPrefix}_admin_list');
+

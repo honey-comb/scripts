@@ -1,0 +1,4 @@
+Route::get('/', '{serviceName}Controller@update')
+    ->name('admin.api.{routePrefix}.update')
+    ->middleware('acl:{aclPrefix}_admin_update');
+

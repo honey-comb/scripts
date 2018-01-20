@@ -1,0 +1,4 @@
+Route::delete('/', '{serviceName}Controller@deleteSoft')
+    ->name('admin.api.{routePrefix}.delete')
+    ->middleware('acl:{aclPrefix}_admin_delete');
+

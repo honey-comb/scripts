@@ -1,0 +1,4 @@
+Route::prefix('{id}')->group(function () {
+
+    {actions}
+});

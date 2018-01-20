@@ -1,0 +1,5 @@
+Route::prefix('api/user')->group(function () {
+
+    {urlActions}
+    {idActions}
+});
