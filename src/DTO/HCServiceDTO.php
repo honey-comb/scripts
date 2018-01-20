@@ -3,13 +3,14 @@
 namespace HoneyComb\Scripts\DTO;
 
 use HoneyComb\Core\DTO\HCBaseDTO;
+use Illuminate\Support\Facades\DB;
 
 class HCServiceDTO extends HCBaseDTO
 {
     private $directory;
     private $url;
     private $isPackage;
-    private $multiLanguage;
+    private $isMultiLanguage;
     private $icon;
 
     private $routesAdmin;
@@ -19,6 +20,7 @@ class HCServiceDTO extends HCBaseDTO
     private $serviceName;
     private $aclPrefix;
     private $namespace;
+    private $models;
 
     /**
      * HCPackageDTO constructor.
@@ -26,19 +28,46 @@ class HCServiceDTO extends HCBaseDTO
      */
     public function __construct(array $data) {
 
+        $this->models = $data['database'];
+
+        foreach ($this->models as &$value)
+        {
+            $value['fields'] = $this->getTableColumns($value['tableName']);
+        }
+
         $this->directory = $data['directory'];
         $this->url = $data['url'];
-        $this->multiLanguage = $data['multiLanguage'];
+        $this->isMultiLanguage = $data['multiLanguage'];
         $this->icon = $data['icon'];
         $this->routePrefix = $data['routePrefix'];
         $this->aclPrefix = $data['aclPrefix'];
         $this->serviceName = $data['serviceName'];
         $this->namespace = $data['namespace'];
+
         $this->isPackage = $this->directory === "" ? false : true;
 
         $this->routesAdmin = $data['services']['admin'];
         $this->routesApi = $data['services']['api'];
         $this->routesFront = $data['services']['front'];
+    }
+
+    /**
+     * Getting table columns
+     *
+     * @param $tableName
+     * @return mixed
+     */
+    private function getTableColumns(string $tableName)
+    {
+        $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
+
+        if (!count($columns)) {
+            $this->abort("Table not found: " . $tableName);
+        } else {
+            $columns = DB::select(DB::raw('SHOW COLUMNS FROM ' . $tableName));
+        }
+
+        return $columns;
     }
 
     /**
@@ -93,12 +122,23 @@ class HCServiceDTO extends HCBaseDTO
     }
 
     /**
-     * @param string $location
+     * @param string $type
      * @return mixed
      */
-    public function getNamespace(string $location = "")
+    public function getNamespace(string $type = "")
     {
-        return $this->namespace . '/' . $location . '/';
+
+        switch ($type)
+        {
+            case "c" :
+
+                return $this->namespace . '\Http\Controllers';
+
+            case "m" :
+
+                return $this->namespace . '\Models';
+        }
+        return $this->namespace;
     }
 
     /**
@@ -107,6 +147,22 @@ class HCServiceDTO extends HCBaseDTO
     public function getServiceName()
     {
         return $this->serviceName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModels()
+    {
+        return $this->models;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultiLanguage(): bool
+    {
+        return $this->isMultiLanguage;
     }
 
     /**
