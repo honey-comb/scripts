@@ -1,5 +1,5 @@
 Route::get('/', '{serviceName}Controller@getListPaginate')
-                ->name('admin.api.{routePrefix}.paginate')
+                ->name('admin.api.{routePrefix}')
                 ->middleware('acl:{aclPrefix}_admin_list');
 
 
