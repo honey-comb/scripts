@@ -18,6 +18,7 @@ class HCServiceDTO extends HCBaseDTO
     private $routePrefix;
     private $serviceName;
     private $aclPrefix;
+    private $namespace;
 
     /**
      * HCPackageDTO constructor.
@@ -32,6 +33,7 @@ class HCServiceDTO extends HCBaseDTO
         $this->routePrefix = $data['routePrefix'];
         $this->aclPrefix = $data['aclPrefix'];
         $this->serviceName = $data['serviceName'];
+        $this->namespace = $data['namespace'];
         $this->isPackage = $this->directory === "" ? false : true;
 
         $this->routesAdmin = $data['services']['admin'];
@@ -88,6 +90,22 @@ class HCServiceDTO extends HCBaseDTO
     public function getAclPrefix()
     {
         return $this->aclPrefix;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNamespace()
+    {
+        return $this->namespace;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getServiceName()
+    {
+        return $this->serviceName;
     }
 
     /**

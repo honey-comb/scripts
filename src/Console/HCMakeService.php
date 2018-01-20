@@ -99,6 +99,7 @@ class HCMakeService extends Command
 
                 $config['routePrefix'] = $this->helper->stringWithDots(strtolower($config['url']));
                 $config['aclPrefix'] = $this->helper->stringWithUnderscore(strtolower($config['directory'] . '_' . $config['routePrefix']));
+                $config['namespace'] = str_replace('-', '', ucwords($config['directory'], "/-")) . "/Http/Controllers/";
 
                 $this->config = new HCServiceDTO($config);
 
