@@ -6,6 +6,7 @@ namespace HoneyComb\Scripts\Console;
 
 use HoneyComb\Scripts\DTO\HCServiceDTO;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
+use HoneyComb\Scripts\Http\Controllers\HCScriptsModelsController;
 use HoneyComb\Scripts\Http\Controllers\HCScriptsRoutesController;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
@@ -111,5 +112,6 @@ class HCMakeService extends Command
     private function createService()
     {
         (new HCScriptsRoutesController($this->helper))->generate($this->config);
+        (new HCScriptsModelsController($this->helper))->generate($this->config);
     }
 }
