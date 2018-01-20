@@ -39,6 +39,11 @@ use HoneyComb\Core\Providers\HCBaseServiceProvider;
 class HCScriptsServiceProvider extends HCBaseServiceProvider
 {
     /**
+     * @var string
+     */
+    protected $homeDirectory = __DIR__;
+
+    /**
      * @var array
      */
     protected $commands = [
