@@ -35,7 +35,7 @@ use HoneyComb\Core\Providers\HCBaseServiceProvider;
  * Class {packageName}
  * @package {namespace}
  */
-class {packageName} extends HCBaseServiceProvider
+class {packageName}ServiceProvider extends HCBaseServiceProvider
 {
     /**
      * @var string
