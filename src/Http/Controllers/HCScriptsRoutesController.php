@@ -41,7 +41,7 @@ class HCScriptsRoutesController extends Controller
     /**
      * @param HCServiceDTO $config
      */
-    public function generate(HCServiceDTO $config)
+    public function generate(HCServiceDTO &$config)
     {
         $this->config = $config;
 
@@ -241,7 +241,7 @@ class HCScriptsRoutesController extends Controller
         $po = [
 
             "name" => "admin.acl." . $this->config->getRoutesPrefix(),
-            "controller" => $this->config->getNamespace('Controllers') . $this->config->getServiceName() . "Controller",
+            "controller" => $this->config->getNamespace('c') . $this->config->getServiceName() . "Controller",
             "actions" => $this->permissions
         ];
 
