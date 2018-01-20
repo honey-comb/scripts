@@ -73,8 +73,10 @@ class HCScriptsHelper
      * @param string $destination
      * @param string $templateLocation
      * @param array $content
+     * @param bool $createFile
+     * @return string
      */
-    public function createFileFromTemplate(string $destination, string $templateLocation, array $content)
+    public function createFileFromTemplate(string $destination, string $templateLocation, array $content, bool $createFile = true): string
     {
         $destination = replaceBrackets($destination, $content);
 
@@ -82,11 +84,63 @@ class HCScriptsHelper
 
         $template = replaceBrackets($template, $content);
 
+        if (!$createFile)
+            return $template;
+
         $directory = array_filter(explode('/', $destination));
         array_pop($directory);
         $directory = implode('/', $directory);
 
         $this->createDirectory($directory);
         file_put_contents($destination, $template);
+
+        return "";
+    }
+
+    /**
+     * Make string in dot from slashes
+     *
+     * @param string $string
+     * @param array $ignoreToReplace
+     * @return mixed
+     */
+    public function stringWithDots(string $string, array $ignoreToReplace = [])
+    {
+        return str_replace($this->getToReplace($ignoreToReplace), '.', $string);
+    }
+
+    /**
+     * Get string in underscore
+     *
+     * @param string $string
+     * @param array $ignoreToReplace
+     * @return mixed
+     */
+    public function stringWithUnderscore(string $string, array $ignoreToReplace = [])
+    {
+        return str_replace($this->getToReplace($ignoreToReplace), '_', trim($string, '/'));
+    }
+
+    /**
+     * Getting hc-config of the package
+     *
+     * @param string $directory
+     * @return array
+     */
+    public function getHCConfig(string $directory): array
+    {
+        return json_decode(file_get_contents( $directory . '/hc-config.json'), true);
+    }
+
+    /**
+     * Updating hc-config package file
+     *
+     * @param string $directory
+     * @param array $config
+     */
+    public function setHCConfig(string $directory, array $config)
+    {
+        file_put_contents($directory . '/hc-config.json',
+            json_encode($config, JSON_PRETTY_PRINT));
     }
 }
