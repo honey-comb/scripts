@@ -31,6 +31,7 @@ namespace HoneyComb\Scripts\Providers;
 
 use HoneyComb\Scripts\Console\HCMakePackage;
 use HoneyComb\Core\Providers\HCBaseServiceProvider;
+use HoneyComb\Scripts\Console\HCMakeService;
 
 /**
  * Class HCCoreServiceProvider
@@ -48,6 +49,7 @@ class HCScriptsServiceProvider extends HCBaseServiceProvider
      */
     protected $commands = [
         HCMakePackage::class,
+        HCMakeService::class,
     ];
 
     /**
