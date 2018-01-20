@@ -32,9 +32,9 @@ class HCMakePackage extends Command
     /**
      * Directory name where all development packages are stored
      *
-     * @var string
+     * @const string
      */
-    protected $rootDirectory = 'development';
+    const ROOT_DIRECTORY = 'development';
 
     /**
      * @var HCScriptsHelper
@@ -60,7 +60,7 @@ class HCMakePackage extends Command
         parent::__construct();
         $this->helper = $helper;
 
-        $this->helper->createDirectory($this->rootDirectory);
+        $this->helper->createDirectory(self::ROOT_DIRECTORY);
     }
 
     /**
@@ -87,7 +87,7 @@ class HCMakePackage extends Command
         $directoryList = [];
 
         // get packages list without /src/hc-config.json file
-        foreach (File::directories($this->rootDirectory) as $directory) {
+        foreach (File::directories(self::ROOT_DIRECTORY) as $directory) {
             $developmentPackages = File::directories($directory);
 
             foreach ($developmentPackages as $package) {
@@ -98,7 +98,7 @@ class HCMakePackage extends Command
         }
 
         if (empty($directoryList)) {
-            $this->helper->abort('You must create your package directory first. .i.e.: honey-comb/package-name inside ' . $this->rootDirectory . ' directory');
+            $this->helper->abort('You must create your package directory first. .i.e.: honey-comb/package-name inside ' . self::ROOT_DIRECTORY . ' directory');
         }
 
         // selecting package directory
@@ -108,7 +108,7 @@ class HCMakePackage extends Command
         $this->config->packageName = $this->ask('Please enter package name');
 
         // setting package name
-        $this->config->packagePath = str_replace($this->rootDirectory . '/', '', $packageDirectory);
+        $this->config->packagePath = str_replace(self::ROOT_DIRECTORY . '/', '', $packageDirectory);
 
         // formatting string with proper uppercase
         $upperCaseFormat = ucwords($this->config->packagePath, "/-");
@@ -161,7 +161,7 @@ class HCMakePackage extends Command
     private function createStructure()
     {
         foreach ($this->config->getFolderList() as $folder) {
-            $this->helper->createDirectory($this->rootDirectory . '/' . $this->config->packagePath . '/' . $folder);
+            $this->helper->createDirectory(self::ROOT_DIRECTORY . '/' . $this->config->packagePath . '/' . $folder);
         }
     }
 
@@ -171,7 +171,7 @@ class HCMakePackage extends Command
     private function createFiles()
     {
         foreach ($this->config->getFilesList() as $key => $value) {
-            $this->helper->createFileFromTemplate($this->rootDirectory . '/' . $key, $value, $this->config->jsonData());
+            $this->helper->createFileFromTemplate(self::ROOT_DIRECTORY . '/' . $key, $value, $this->config->jsonData());
         }
     }
 }
