@@ -93,11 +93,12 @@ class HCServiceDTO extends HCBaseDTO
     }
 
     /**
+     * @param string $location
      * @return mixed
      */
-    public function getNamespace()
+    public function getNamespace(string $location = "")
     {
-        return $this->namespace;
+        return $this->namespace . '/' . $location . '/';
     }
 
     /**

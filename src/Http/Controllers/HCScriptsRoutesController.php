@@ -241,7 +241,7 @@ class HCScriptsRoutesController extends Controller
         $po = [
 
             "name" => "admin.acl." . $this->config->getRoutesPrefix(),
-            "controller" => $this->config->getNamespace() . $this->config->getServiceName() . "Controller",
+            "controller" => $this->config->getNamespace('Controllers') . $this->config->getServiceName() . "Controller",
             "actions" => $this->permissions
         ];
 
