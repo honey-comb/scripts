@@ -37,8 +37,7 @@ class HCPackageDTO extends HCBaseDTO
      */
     public function __construct(
         array $data
-    )
-    {
+    ) {
         $this->data = $data;
     }
 
@@ -71,6 +70,6 @@ class HCPackageDTO extends HCBaseDTO
      */
     public function jsonData(): array
     {
-        return get_object_vars ($this);
+        return get_object_vars($this);
     }
 }
