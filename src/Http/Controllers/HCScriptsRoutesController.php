@@ -238,7 +238,14 @@ class HCScriptsRoutesController extends Controller
 
         $hcConfig = $this->helper->getHCConfig ($directory);
 
-        $hcConfig['acl']['permissions'] = array_unique(array_merge($hcConfig['acl']['permissions'], $this->permissions));
+        $po = [
+
+            "name" => "admin.acl." . $this->config->getRoutesPrefix(),
+            "controller" => $this->config->getNamespace() . $this->config->getServiceName() . "Controller",
+            "actions" => $this->permissions
+        ];
+
+        $hcConfig['acl']['permissions'][] = $po;
 
         $this->helper->setHCConfig($directory, $hcConfig);
     }
