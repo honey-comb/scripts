@@ -219,6 +219,13 @@ class HCScriptsRoutesController extends Controller
             $this->permissions[] = $this->config->getAclPrefix() . "_". $prefix. "_clone";
         }
 
+        if (in_array("restore", $actions)) {
+            $php .= $this->helper->createFileFromTemplate("", "service/routes/" . $prefix . "/action.restore.hctpl",
+                $this->config->jsonSerialize(), false);
+
+            $this->permissions[] = $this->config->getAclPrefix() . "_". $prefix. "_restore";
+        }
+
         return $php;
     }
 
