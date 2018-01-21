@@ -92,6 +92,22 @@ class HCServiceModelsDTO extends HCBaseDTO
     }
 
     /**
+     * gets default model
+     *
+     * @return mixed|null
+     */
+    public function getDefaultModel ()
+    {
+        foreach ($this->models as $model)
+        {
+            if ($model['default'])
+                return $model;
+        }
+
+        return null;
+    }
+
+    /**
      * @return array
      */
     private function getSkipFieldsForModel(): array
@@ -102,7 +118,7 @@ class HCServiceModelsDTO extends HCBaseDTO
     /**
      * @return array
      */
-    private function getSkipFieldsForForm(): array
+    public function getSkipFieldsForForm(): array
     {
         return array_merge($this->skipFields, ['id']);
     }
