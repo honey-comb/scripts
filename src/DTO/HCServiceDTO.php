@@ -94,6 +94,12 @@ class HCServiceDTO extends HCBaseDTO
      */
     private $modelConfig;
 
+    /**
+     * Translations
+     * @var HCTranslationsDTO
+     */
+    private $translation;
+
 
     /**
      * HCServiceDTO constructor.
@@ -126,6 +132,10 @@ class HCServiceDTO extends HCBaseDTO
 
         $this->actions = new HCServiceActionsDTO($data['actions']);
         $this->modelConfig = new HCServiceModelsDTO($data['models'], $this->helper);
+
+        $this->translation = new HCTranslationsDTO($this->modelConfig, $this->helper);
+        $this->translation->setRootDirectory($this->packageConfig->getPackageName(), $this->getDirectory());
+        $this->translation->setTranslationPrefix($this->getUrl());
 
         /*dd($this->isEditForm(), $this->isNewForm());
 
@@ -277,6 +287,14 @@ class HCServiceDTO extends HCBaseDTO
     public function getActions(): HCServiceActionsDTO
     {
         return $this->actions;
+    }
+
+    /**
+     * @return HCTranslationsDTO
+     */
+    public function getTranslation(): HCTranslationsDTO
+    {
+        return $this->translation;
     }
 
     /**
