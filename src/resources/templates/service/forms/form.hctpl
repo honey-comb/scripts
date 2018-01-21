@@ -27,11 +27,12 @@
 
 declare(strict_types = 1);
 
-namespace HoneyComb\Core\Forms;
+namespace {namespace};
+use HoneyComb\Core\Forms\HCBaseForm;
 
 /**
  * Class {serviceName}Form
- * @package HoneyComb\Core\Forms
+ * @package {namespace}
  */
 class {serviceName}Form extends HCBaseForm
 {
@@ -44,7 +45,7 @@ class {serviceName}Form extends HCBaseForm
     public function createForm(bool $edit = false): array
     {
         $form = [
-            'storageUrl' => route('admin.api.{routePrefix}'),
+            'storageUrl' => route('admin.api.{routeName}'),
             'buttons' => [
                 'submit' => [
                     'label' => $this->getSubmitLabel($edit),
@@ -69,7 +70,7 @@ class {serviceName}Form extends HCBaseForm
     public function getStructureNew(string $prefix): array
     {
         return [
-            {structureNew}
+            {structure}
         ];
     }
 
@@ -79,8 +80,6 @@ class {serviceName}Form extends HCBaseForm
      */
     public function getStructureEdit(string $prefix): array
     {
-        return [
-            {structureEdit}
-        ];
+        return $this->getStructureNew($prefix);
     }
 }

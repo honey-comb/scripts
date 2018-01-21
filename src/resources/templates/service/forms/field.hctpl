@@ -1,6 +1,6 @@
 $prefix . '{field}' =>
     [
-        {type},
-        {label},
-        {required},
+        {type}
+        {label}
+        {required}
     ],
