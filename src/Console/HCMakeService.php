@@ -98,11 +98,7 @@ class HCMakeService extends Command
                     $this->helper->abort($file->getFilename() . ' has Invalid JSON format.');
                 }
 
-                $config['routePrefix'] = $this->helper->stringWithDots(strtolower($config['url']));
-                $config['aclPrefix'] = $this->helper->stringWithUnderscore(strtolower($config['directory'] . '_' . $config['routePrefix']));
-                $config['namespace'] = str_replace('/', '\\', str_replace('-', '', ucwords($config['directory'], "/-")));
-
-                $this->config = new HCServiceDTO($config);
+                $this->config = new HCServiceDTO($config, $this->helper);
 
                 break;
             }
@@ -113,5 +109,6 @@ class HCMakeService extends Command
     {
         (new HCScriptsRoutesController($this->helper))->generate($this->config);
         (new HCScriptsModelsController($this->helper))->generate($this->config);
+    //    (new HCScriptsFormsController($this->helper))->generate($this->config);
     }
 }
