@@ -10,7 +10,7 @@ if (!function_exists('replaceBrackets')) {
     {
         foreach ($data as $key => $value) {
 
-            if (!is_array($value)) {
+            if (!is_array($value) && !is_object($value)) {
                 $string = str_replace('{' . $key . '}', $value, $string);
             }
         }
