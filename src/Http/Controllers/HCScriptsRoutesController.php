@@ -69,7 +69,7 @@ class HCScriptsRoutesController extends Controller
                 ], false);
         }
 
-        $this->helper->createFileFromTemplate($this->getRoutesPath('Admin'), 'service/routes/route.admin.hctpl',
+        $this->helper->createFileFromTemplate($this->getFullRoutePath($this->getRoutePath('Admin')), 'service/routes/route.admin.hctpl',
             [
                 "index" => $this->getIndex($this->config->getActions()->getAdmin(), 'admin'),
                 "actions" => $actionList
@@ -81,22 +81,26 @@ class HCScriptsRoutesController extends Controller
 
     /**
      * Generating file destination
-     * @param string $directory
+     * @param string $path
      * @return string
      */
-    private function getRoutesPath(string $directory)
+    private function getFullRoutePath(string $path)
     {
-        return $this->config->getDirectory() . 'Routes/' . $directory . '/routes.' . $this->config->getRouteName() . 's.php';
+        return $this->config->getDirectory() . $path;
+    }
+
+    private function getRoutePath($directory)
+    {
+        return  'Routes/' . $directory . '/routes.' . $this->config->getRouteName() . 's.php';
     }
 
     /**
      * Getting index route
      *
      * @param array $actions
-     * @param string $prefix
      * @return string
      */
-    private function getIndex (array $actions, string $prefix): string
+    private function getIndex (array $actions): string
     {
         $php = "";
 
@@ -114,10 +118,9 @@ class HCScriptsRoutesController extends Controller
      * Getting all actions which will be required for /{id}/
      *
      * @param array $actions
-     * @param string $prefix
      * @return string
      */
-    private function getIdsActions(array $actions, string $prefix): string
+    private function getIdsActions(array $actions): string
     {
         $php = "";
 
@@ -147,10 +150,9 @@ class HCScriptsRoutesController extends Controller
      * Getting all actions which will be required for /{id}/
      *
      * @param array $actions
-     * @param string $prefix
      * @return string
      */
-    private function getUrlActions(array $actions, string $prefix): string
+    private function getUrlActions(array $actions): string
     {
         $php = "";
 
@@ -220,5 +222,9 @@ class HCScriptsRoutesController extends Controller
         ];
 
         $this->config->updatePackagePermissions($permission);
+
+        if ($this->config->getActions()->getAdmin())
+            $this->config->updatePackageRoutes($this->getRoutePath('Admin'));
+
     }
 }

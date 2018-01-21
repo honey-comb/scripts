@@ -196,35 +196,6 @@ class HCServiceDTO extends HCBaseDTO
         return $this->packageConfig;
     }
 
-    public function updatePackagePermissions(array $data)
-    {
-        $config = $this->helper->getHCConfig($this->getDirectory());
-        $existing = false;
-
-
-        if (isset($config['acl']['permissions']['name'])) {
-            if ($config['acl']['permissions']['name'] == $data['name']) {
-                $existing = true;
-            }
-
-            if (!$existing) {
-                $config['acl']['permissions'] = [$config['acl']['permissions'], $data];
-            }
-        } else {
-            foreach ($config['acl']['permissions'] as $permission) {
-                if ($permission['name'] == $data['name']) {
-                    $existing = true;
-                }
-            }
-
-            if (!$existing) {
-                $config['acl']['permissions'] = array_merge($config['acl']['permissions'], $data);
-            }
-        }
-
-        $this->helper->setHCConfig($this->getDirectory(), $config);
-    }
-
     /**
      * @return string
      */
@@ -295,6 +266,52 @@ class HCServiceDTO extends HCBaseDTO
     public function getTranslation(): HCTranslationsDTO
     {
         return $this->translation;
+    }
+
+    /**
+     * Updating package permissions
+     * @param array $data
+     */
+    public function updatePackagePermissions(array $data)
+    {
+        $config = $this->helper->getHCConfig($this->getDirectory());
+        $existing = false;
+
+        if (isset($config['acl']['permissions']['name'])) {
+            if ($config['acl']['permissions']['name'] == $data['name']) {
+                $existing = true;
+            }
+
+            if (!$existing) {
+                $config['acl']['permissions'] = [$config['acl']['permissions'], $data];
+            }
+        } else {
+            foreach ($config['acl']['permissions'] as $permission) {
+                if ($permission['name'] == $data['name']) {
+                    $existing = true;
+                }
+            }
+
+            if (!$existing) {
+                $config['acl']['permissions'] = array_merge($config['acl']['permissions'], $data);
+            }
+        }
+
+        $this->helper->setHCConfig($this->getDirectory(), $config);
+    }
+
+    /**
+     * Updating package routes
+     * @param $route
+     */
+    public function updatePackageRoutes($route)
+    {
+        $config = $this->helper->getHCConfig($this->getDirectory());
+
+        if (!in_array($route, $config['routes']))
+            $config['routes'][] = $route;
+
+        $this->helper->setHCConfig($this->getDirectory(), $config);
     }
 
     /**
