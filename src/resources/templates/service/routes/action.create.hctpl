@@ -1,4 +1,4 @@
 Route::post('/', '{serviceName}Controller@store')
-    ->name('admin.api.{routePrefix}.create')
+    ->name('admin.api.{routeName}.create')
     ->middleware('acl:{aclPrefix}_admin_create');
 

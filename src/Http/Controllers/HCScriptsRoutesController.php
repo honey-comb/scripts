@@ -72,7 +72,8 @@ class HCScriptsRoutesController extends Controller
         $this->helper->createFileFromTemplate($this->getFullRoutePath($this->getRoutePath('Admin')), 'service/routes/route.admin.hctpl',
             [
                 "index" => $this->getIndex($this->config->getActions()->getAdmin(), 'admin'),
-                "actions" => $actionList
+                "actions" => $actionList,
+                "url" => $this->config->getUrl()
             ]);
     }
     private function generateApi()

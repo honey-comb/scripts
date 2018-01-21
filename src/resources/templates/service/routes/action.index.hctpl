@@ -1,4 +1,4 @@
 Route::get('{url}', '{serviceName}Controller@index')
-                    ->name('admin.{routePrefix}.index')
+                    ->name('admin.{routeName}.index')
                     ->middleware('acl:{aclPrefix}_admin_list');
 

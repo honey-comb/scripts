@@ -1,4 +1,4 @@
-Route::prefix('api/user')->group(function () {
+Route::prefix('api/{url}')->group(function () {
 
     {urlActions}
     {idActions}

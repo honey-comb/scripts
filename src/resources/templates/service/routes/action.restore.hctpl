@@ -1,4 +1,4 @@
 Route::post('restore', '{serviceName}Controller@restore')
-    ->name('admin.api.{routePrefix}.restore')
+    ->name('admin.api.{routeName}.restore')
     ->middleware('acl:{aclPrefix}_admin_restore');
 
