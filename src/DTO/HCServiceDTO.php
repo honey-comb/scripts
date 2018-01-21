@@ -302,14 +302,29 @@ class HCServiceDTO extends HCBaseDTO
 
     /**
      * Updating package routes
-     * @param $route
+     * @param string $route
      */
-    public function updatePackageRoutes($route)
+    public function updatePackageRoutes(string $route)
     {
         $config = $this->helper->getHCConfig($this->getDirectory());
 
         if (!in_array($route, $config['routes']))
             $config['routes'][] = $route;
+
+        $this->helper->setHCConfig($this->getDirectory(), $config);
+    }
+
+    /**
+     * Updating package routes
+     * @param string $name
+     * @param string $namespace
+     */
+    public function updateForm(string $name, string $namespace)
+    {
+        $config = $this->helper->getHCConfig($this->getDirectory());
+
+        if (!isset($config['formData'][$name]))
+            $config['formData'][$name] = $namespace;
 
         $this->helper->setHCConfig($this->getDirectory(), $config);
     }

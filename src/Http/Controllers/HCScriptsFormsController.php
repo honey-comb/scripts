@@ -70,6 +70,8 @@ class HCScriptsFormsController extends Controller
         ];
 
         $this->helper->createFileFromTemplate($this->getFormDestination(), "service/forms/form.hctpl", $data);
+
+        $this->config->updateForm($this->config->getRouteName(), $data['namespace'] . '\\' . $data['serviceName'] . 'Form');
     }
 
     private function getFieldType(string $type)
