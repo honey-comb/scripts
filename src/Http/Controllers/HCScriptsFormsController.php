@@ -15,16 +15,6 @@ class HCScriptsFormsController extends Controller
     private $config;
 
     /**
-     * @var string
-     */
-    private $rootDirectory;
-
-    /**
-     * @var array
-     */
-    private $permissions = [];
-
-    /**
      * @var HCScriptsHelper
      */
     private $helper;
@@ -45,33 +35,41 @@ class HCScriptsFormsController extends Controller
     {
         $this->config = $config;
 
-        $model = $this->config->getDefaultModel();
+        $model = $this->config->getModelConfig()->getDefaultModel();
 
         if ($model == null)
             $this->helper->abort("No default table is set.");
 
-        $list = [];
+        $structure = "";
 
         foreach ($model['fields'] as $field)
         {
             $fieldData = [];
 
-            if (!in_array($field->Field, $this->config->getSkipFields()))
+            if (!in_array($field->Field, $this->config->getModelConfig()->getSkipFieldsForForm()))
             {
                 $fieldData['field'] = $field->Field;
 
                 if ($field->Null == "NO")
-                    $fieldData['required'] = '"required" => 1';
+                    $fieldData['required'] = '"required" => 1,';
+                else
+                    $fieldData['required'] = "";
 
-                $fieldData['type'] = $this->getFieldType($field->Type);
+                $fieldData['type'] = '"type" => ' . $this->getFieldType($field->Type) . ',';
+                $fieldData['label'] = '"label" => "' . $this->config->getTranslation()->getLabelFieldForForm($field->Field) . '",';
 
-                $fieldData['label'] = '"label" => trans("' . $this->helper->getPackageConfig() . '"';
-
-                $list[] = $this->helper->createFileFromTemplate("", "service/forms/field.hctpl", $fieldData, false);
+                $structure .= $this->helper->createFileFromTemplate("", "service/forms/field.hctpl", $fieldData, false);
             }
         }
 
-        dd($list);
+        $data = [
+            "serviceName" => $this->config->getServiceName(),
+            "namespace" => $this->config->getPackageConfig()->getNamespaceForForm(),
+            "structure" => $structure,
+            "routeName" => $this->config->getRouteName()
+        ];
+
+        $this->helper->createFileFromTemplate($this->getFormDestination(), "service/forms/form.hctpl", $data);
     }
 
     private function getFieldType(string $type)
@@ -96,5 +94,10 @@ class HCScriptsFormsController extends Controller
             return '"dateTimePicker"';
 
         return "";
+    }
+
+    private function getFormDestination ()
+    {
+        return $this->config->getDirectory() . 'Forms/' . $this->config->getServiceName() . 'Form.php';
     }
 }
