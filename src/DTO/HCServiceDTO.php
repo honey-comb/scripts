@@ -3,79 +3,143 @@
 namespace HoneyComb\Scripts\DTO;
 
 use HoneyComb\Core\DTO\HCBaseDTO;
+use HoneyComb\Scripts\Console\HCMakePackage;
+use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 use Illuminate\Support\Facades\DB;
 
 class HCServiceDTO extends HCBaseDTO
 {
-    private $directory;
-    private $url;
-    private $isPackage;
-    private $isMultiLanguage;
-    private $icon;
-
-    private $routesAdmin;
-    private $routesApi;
-    private $routesFront;
-    private $routePrefix;
-    private $serviceName;
-    private $aclPrefix;
-    private $namespace;
-    private $models;
+    /**
+     * Scripts helper
+     * @var HCScriptsHelper
+     */
+    private $helper;
 
     /**
-     * HCPackageDTO constructor.
-     * @param array $data
+     * Is service meant for package of for app
+     * @var bool
      */
-    public function __construct(array $data) {
+    private $package;
+
+    /**
+     * Directory where service will be stored
+     *
+     * @var mixed
+     */
+    private $directory;
+
+    /**
+     * Is service multi language
+     * @var bool
+     */
+    private $isMultiLanguage;
+
+    /**
+     * Icon for admin menu
+     * @var string
+     */
+    private $icon;
+
+    /**
+     * Package configuration
+     * @var HCPackageDTO
+     */
+    private $packageConfig;
+
+    /**
+     * Route name which will be used in routes
+     * @var string
+     */
+    private $routeName;
+
+    /**
+     * ACL prefix for actions
+     * @var string
+     */
+    private $aclPrefix;
+
+    /**
+     * Service name
+     *
+     * @var string
+     */
+    private $serviceName;
+
+    /**
+     * Service URL
+     * @var string
+     */
+    private $url;
+
+    /**
+     * Is new form available
+     * @var bool
+     */
+    private $newForm;
+
+    /**
+     * Is edit form available
+     * @var bool
+     */
+    private $editForm;
+
+    /**
+     * Setting
+     * @var HCServiceActionsDTO
+     */
+    private $actions;
+
+    /**
+     * @var HCServiceModelsDTO
+     */
+    private $modelConfig;
+
+
+    /**
+     * HCServiceDTO constructor.
+     * @param array $data
+     * @param $helper
+     */
+    public function __construct(array $data, $helper)
+    {
+        $this->helper = $helper;
+
+        $this->directory = $data['directory'];
+        $this->package = $this->directory === "" ? false : true;
+        $this->isMultiLanguage = (bool)$data['multiLanguage'];
+        $this->icon = $data['icon'];
+        $this->url = $data['url'];
+        $this->routeName = $this->helper->stringWithDots(strtolower($this->url));
+        $this->aclPrefix = $this->helper->stringWithUnderscore(strtolower($this->directory . '_' . $this->routeName));
+        $this->serviceName = $data['serviceName'];
+
+        if (in_array("new", $data["forms"])) {
+            $this->newForm = true;
+        }
+
+        if (in_array("edit", $data["forms"])) {
+            $this->editForm = true;
+        }
+
+        $this->packageConfig = new HCPackageDTO(json_decode(file_get_contents($this->getDirectory() . 'hc-config.json'),
+            true));
+
+        $this->actions = new HCServiceActionsDTO($data['actions']);
+        $this->modelConfig = new HCServiceModelsDTO($data['models'], $this->helper);
+
+        /*dd($this->isEditForm(), $this->isNewForm());
+
+        return;
 
         $this->models = $data['database'];
 
-        foreach ($this->models as &$value)
-        {
+        foreach ($this->models as &$value) {
             $value['fields'] = $this->getTableColumns($value['tableName']);
         }
 
-        $this->directory = $data['directory'];
-        $this->url = $data['url'];
-        $this->isMultiLanguage = $data['multiLanguage'];
-        $this->icon = $data['icon'];
-        $this->routePrefix = $data['routePrefix'];
-        $this->aclPrefix = $data['aclPrefix'];
-        $this->serviceName = $data['serviceName'];
-        $this->namespace = $data['namespace'];
-
-        $this->isPackage = $this->directory === "" ? false : true;
-
         $this->routesAdmin = $data['services']['admin'];
         $this->routesApi = $data['services']['api'];
-        $this->routesFront = $data['services']['front'];
-    }
-
-    /**
-     * Getting table columns
-     *
-     * @param $tableName
-     * @return mixed
-     */
-    private function getTableColumns(string $tableName)
-    {
-        $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
-
-        if (!count($columns)) {
-            $this->abort("Table not found: " . $tableName);
-        } else {
-            $columns = DB::select(DB::raw('SHOW COLUMNS FROM ' . $tableName));
-        }
-
-        return $columns;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRoutesApi()
-    {
-        return $this->routesApi;
+        $this->routesFront = $data['services']['front'];*/
     }
 
     /**
@@ -83,7 +147,7 @@ class HCServiceDTO extends HCBaseDTO
      */
     public function isPackage(): bool
     {
-        return $this->isPackage;
+        return $this->package;
     }
 
     /**
@@ -91,70 +155,11 @@ class HCServiceDTO extends HCBaseDTO
      */
     public function getDirectory()
     {
-        if ($this->isPackage)
-            return $this->directory . '/src';
-
-        return $this->directory;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRoutesPrefix()
-    {
-        return $this->routePrefix;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRoutesAdmin()
-    {
-        return $this->routesAdmin;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAclPrefix()
-    {
-        return $this->aclPrefix;
-    }
-
-    /**
-     * @param string $type
-     * @return mixed
-     */
-    public function getNamespace(string $type = "")
-    {
-
-        switch ($type)
-        {
-            case "c" :
-
-                return $this->namespace . '\Http\Controllers';
-
-            case "m" :
-
-                return $this->namespace . '\Models';
+        if ($this->package) {
+            return HCMakePackage::ROOT_DIRECTORY . DIRECTORY_SEPARATOR . $this->directory . '/src/';
         }
-        return $this->namespace;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getServiceName()
-    {
-        return $this->serviceName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getModels()
-    {
-        return $this->models;
+        return 'app/';
     }
 
     /**
@@ -163,6 +168,115 @@ class HCServiceDTO extends HCBaseDTO
     public function isMultiLanguage(): bool
     {
         return $this->isMultiLanguage;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIcon(): string
+    {
+        return $this->icon;
+    }
+
+    /**
+     * @return HCPackageDTO
+     */
+    public function getPackageConfig(): HCPackageDTO
+    {
+        return $this->packageConfig;
+    }
+
+    public function updatePackagePermissions(array $data)
+    {
+        $config = $this->helper->getHCConfig($this->getDirectory());
+        $existing = false;
+
+
+        if (isset($config['acl']['permissions']['name'])) {
+            if ($config['acl']['permissions']['name'] == $data['name']) {
+                $existing = true;
+            }
+
+            if (!$existing) {
+                $config['acl']['permissions'] = [$config['acl']['permissions'], $data];
+            }
+        } else {
+            foreach ($config['acl']['permissions'] as $permission) {
+                if ($permission['name'] == $data['name']) {
+                    $existing = true;
+                }
+            }
+
+            if (!$existing) {
+                $config['acl']['permissions'] = array_merge($config['acl']['permissions'], $data);
+            }
+        }
+
+        $this->helper->setHCConfig($this->getDirectory(), $config);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRouteName(): string
+    {
+        return $this->routeName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAclPrefix(): string
+    {
+        return $this->aclPrefix;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServiceName(): string
+    {
+        return $this->serviceName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNewForm(): bool
+    {
+        return $this->newForm;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEditForm(): bool
+    {
+        return $this->editForm;
+    }
+
+    /**
+     * @return HCServiceModelsDTO
+     */
+    public function getModelConfig(): HCServiceModelsDTO
+    {
+        return $this->modelConfig;
+    }
+
+    /**
+     * @return HCServiceActionsDTO
+     */
+    public function getActions(): HCServiceActionsDTO
+    {
+        return $this->actions;
     }
 
     /**
