@@ -148,6 +148,11 @@ class HCPackageDTO extends HCBaseDTO
         return $this->data;
     }
 
+    public function getNamespaceForForm()
+    {
+        return $this->namespace . 'Forms';
+    }
+
     /**
      * @return array
      */
