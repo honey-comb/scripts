@@ -2,6 +2,7 @@
     "name": "{packageName}",
     "description": "",
     "keywords": [],
+    "homepage": "https://github.com/{packagePath}",
     "license": "MIT",
     "authors": [],
     "repositories": [],
@@ -10,9 +11,31 @@
         "laravel/framework": "5.5.*",
         "honey-comb/core": "*"
     },
+    "require-dev": {
+        "brianium/paratest": "^1.0",
+        "mockery/mockery": "^1.0",
+        "orchestra/testbench-browser-kit": "^3.5",
+        "phpunit/phpunit": "^6.4"
+    },
     "autoload": {
         "psr-4": {
-            "{packagePath}": "src/"
+            "{namespaceComposer}": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "paratest -p4 --colors"
+        ]
+    },
+    "config": {
+        "secure-http": false,
+        "platform": {
+            "php": "7.1"
         }
     }
 }
