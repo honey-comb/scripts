@@ -82,7 +82,7 @@ class HCMakePackage extends Command
      * @throws \Exception
      * @throws \Symfony\Component\Console\Exception\InvalidArgumentException
      */
-    private function finalizeConfig()
+    private function finalizeConfig(): void
     {
         $directoryList = [];
 

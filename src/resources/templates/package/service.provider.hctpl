@@ -27,13 +27,13 @@
 
 declare(strict_types = 1);
 
-namespace {namespace};
+namespace {namespace}\Providers;
 
 use HoneyComb\Core\Providers\HCBaseServiceProvider;
 
 /**
- * Class {packageName}
- * @package {namespace}
+ * Class {packageName}ServiceProvider
+ * @package {namespace}\Providers
  */
 class {packageName}ServiceProvider extends HCBaseServiceProvider
 {

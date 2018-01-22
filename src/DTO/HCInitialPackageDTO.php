@@ -1,9 +1,14 @@
 <?php
+declare(strict_types = 1);
 
 namespace HoneyComb\Scripts\DTO;
 
 use HoneyComb\Core\DTO\HCBaseDTO;
 
+/**
+ * Class HCInitialPackageDTO
+ * @package HoneyComb\Scripts\DTO
+ */
 class HCInitialPackageDTO extends HCBaseDTO
 {
     /**
@@ -35,9 +40,8 @@ class HCInitialPackageDTO extends HCBaseDTO
      * HCPackageDTO constructor.
      * @param array $data
      */
-    public function __construct(
-        array $data
-    ) {
+    public function __construct(array $data)
+    {
         $this->data = $data;
     }
 

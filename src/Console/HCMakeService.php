@@ -13,8 +13,8 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
 /**
- * Class HCProjectSize
- * @package HoneyComb\Core\Console
+ * Class HCMakeService
+ * @package HoneyComb\Scripts\Console
  */
 class HCMakeService extends Command
 {
@@ -106,6 +106,9 @@ class HCMakeService extends Command
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     private function createService()
     {
         (new HCScriptsRoutesController($this->helper))->generate($this->config);
