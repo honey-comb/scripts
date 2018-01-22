@@ -9,7 +9,8 @@
     {
       "tableName": "",
       "modelName": "",
-      "default": 1
+      "default": 1,
+      "use": ["translations"]
     }
   ],
   "actions": {
