@@ -29,13 +29,14 @@ declare(strict_types = 1);
 
 namespace HoneyComb\Scripts\Providers;
 
-use HoneyComb\Scripts\Console\HCMakePackage;
 use HoneyComb\Core\Providers\HCBaseServiceProvider;
+use HoneyComb\Scripts\Console\HCMakePackage;
 use HoneyComb\Scripts\Console\HCMakeService;
 
 /**
- * Class HCCoreServiceProvider
- * @package HoneyComb\Core\Providers
+ * Class HCScriptsServiceProvider
+ *
+ * @package HoneyComb\Scripts\Providers
  */
 class HCScriptsServiceProvider extends HCBaseServiceProvider
 {

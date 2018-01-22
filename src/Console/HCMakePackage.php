@@ -10,8 +10,8 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
 /**
- * Class HCProjectSize
- * @package HoneyComb\Core\Console
+ * Class HCMakePackage
+ * @package HoneyComb\Scripts\Console
  */
 class HCMakePackage extends Command
 {
@@ -34,7 +34,7 @@ class HCMakePackage extends Command
      *
      * @const string
      */
-    const ROOT_DIRECTORY = 'development';
+    const ROOT_DIRECTORY = 'packages';
 
     /**
      * @var HCScriptsHelper
