@@ -1,0 +1,50 @@
+{
+  "directory": "vendor/name",
+  "url": "",
+  "icon": "FA5",
+  "serviceName": "",
+  "multiLanguage": 0,
+  "forms": ["new", "edit"],
+  "models": [
+    {
+      "tableName": "",
+      "modelName": "",
+      "default": 1
+    }
+  ],
+  "actions": {
+    "admin": [
+      "create",
+      "update",
+      "delete",
+      "restore",
+      "delete_force",
+      "merge",
+      "clone",
+      "list",
+      "restore"
+    ],
+    "front": [
+      "create",
+      "update",
+      "delete",
+      "restore",
+      "delete_force",
+      "merge",
+      "clone",
+      "list",
+      "restore"
+    ],
+    "api": [
+      "create",
+      "update",
+      "delete",
+      "restore",
+      "delete_force",
+      "merge",
+      "clone",
+      "list",
+      "restore"
+    ]
+  }
+}
