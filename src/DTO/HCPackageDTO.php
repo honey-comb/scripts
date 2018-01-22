@@ -122,12 +122,12 @@ class HCPackageDTO extends HCBaseDTO
      * @param string $serviceName
      * @return string
      */
-    public function getNamespaceForController(string $serviceName = "")
+    public function getNamespaceForAdminController(string $serviceName = "")
     {
         if ($serviceName === "")
             return $this->namespace;
 
-        return $this->namespace . 'Http\Controllers\\' . $serviceName . 'Controller';
+        return $this->namespace . 'Http\Controllers\\Admin\\' . $serviceName . 'Controller';
     }
 
     /**
