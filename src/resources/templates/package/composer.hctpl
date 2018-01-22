@@ -20,7 +20,10 @@
     "autoload": {
         "psr-4": {
             "{namespaceComposer}": "src/"
-        }
+        },
+        "files": [
+            "src/Helpers/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
