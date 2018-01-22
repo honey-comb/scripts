@@ -30,9 +30,16 @@ declare(strict_types = 1);
 namespace {namespace};
 
 use HoneyComb\Core\Models\HCUuidModel;
+{useNamespaces}
 
+/**
+ * Class {model}
+ * @package {namespace}
+ */
 class {model} extends HCUuidModel
 {
+    {useClassNames}
+
     /**
      * The database table used by the model.
      *
@@ -45,5 +52,7 @@ class {model} extends HCUuidModel
      *
      * @var array
      */
-    protected $fillable = [{fields}];
+    protected $fillable = [
+        {fields}
+    ];
 }
