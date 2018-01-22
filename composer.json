@@ -25,7 +25,7 @@
   },
   "autoload": {
     "psr-4": {
-      "HoneyComb\\Core\\": "src/"
+      "HoneyComb\\Scripts\\": "src/"
     },
     "files": [
       "src/Helpers/helpers.php"
