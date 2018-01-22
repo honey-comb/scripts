@@ -33,13 +33,6 @@ class HCMakeService extends Command
     protected $description = 'Creating a standardized service';
 
     /**
-     * Directory name where all development packages are stored
-     *
-     * @var string
-     */
-    protected $rootDirectory = 'development';
-
-    /**
      * Configuration directory
      *
      * @var string
