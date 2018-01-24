@@ -42,6 +42,15 @@ class HCServiceModelsDTO extends HCBaseDTO
     public function __construct(array $models, HCScriptsHelper $helper)
     {
         $this->helper = $helper;
+        $autoModels = [];
+
+        foreach ($models as $model) {
+            if (in_array('translations', $model['use'])) {
+                $autoModels[] = ($this->createTranslationsModel($model));
+            }
+        }
+
+        $models = array_merge($models, $autoModels);
 
         foreach ($models as $model) {
 
@@ -61,7 +70,7 @@ class HCServiceModelsDTO extends HCBaseDTO
         $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
 
         if (!count($columns)) {
-            $this->helper->abort("Table not found: " . $tableName);
+            $this->helper->abort('Table not found: ' . $tableName);
         } else {
             $columns = DB::select(DB::raw('SHOW COLUMNS FROM ' . $tableName));
         }
@@ -80,7 +89,7 @@ class HCServiceModelsDTO extends HCBaseDTO
     /**
      * @param array $model
      */
-    public function getFieldsForModel (array &$model)
+    public function getFieldsForModel(array &$model)
     {
         $fields = array_pluck($model['fields'], 'Field');
 
@@ -96,12 +105,12 @@ class HCServiceModelsDTO extends HCBaseDTO
      *
      * @return mixed|null
      */
-    public function getDefaultModel ()
+    public function getDefaultModel()
     {
-        foreach ($this->models as $model)
-        {
-            if ($model['default'])
+        foreach ($this->models as $model) {
+            if ($model['default']) {
                 return $model;
+            }
         }
 
         return null;
@@ -129,5 +138,19 @@ class HCServiceModelsDTO extends HCBaseDTO
     protected function jsonData(): array
     {
         return get_object_vars($this);
+    }
+
+    /**
+     * Automatically creating translation model
+     * @param array $model
+     * @return array
+     */
+    private function createTranslationsModel(array $model): array
+    {
+        return [
+            'tableName' => $model['tableName'] . '_translations',
+            'modelName' => $model['modelName'] . 'Translations',
+            'use' => [],
+        ];
     }
 }
