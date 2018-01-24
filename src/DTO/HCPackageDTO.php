@@ -57,7 +57,7 @@ class HCPackageDTO extends HCBaseDTO
     public function __construct(array $data)
     {
         $this->data = $data;
-        
+
         $this->packageName = $data['general']['packageName'];
         $this->namespace = $data['general']['namespace'];
 
@@ -122,10 +122,11 @@ class HCPackageDTO extends HCBaseDTO
      * @param string $serviceName
      * @return string
      */
-    public function getNamespaceForAdminController(string $serviceName = "")
+    public function getNamespaceForAdminController(string $serviceName = ""): string
     {
-        if ($serviceName === "")
+        if ($serviceName === "") {
             return $this->namespace;
+        }
 
         return $this->namespace . 'Http\Controllers\\Admin\\' . $serviceName . 'Controller';
     }
@@ -135,7 +136,7 @@ class HCPackageDTO extends HCBaseDTO
      *
      * @return string
      */
-    public function getNamespaceForModel()
+    public function getNamespaceForModel(): string
     {
         return $this->namespace . 'Models';
     }
@@ -148,7 +149,10 @@ class HCPackageDTO extends HCBaseDTO
         return $this->data;
     }
 
-    public function getNamespaceForForm()
+    /**
+     * @return string
+     */
+    public function getNamespaceForForm(): string
     {
         return $this->namespace . 'Forms';
     }
