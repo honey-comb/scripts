@@ -1,0 +1,18 @@
+<?php
+
+namespace {repositoryNs};
+
+use {namespace}\{model};
+use HoneyComb\Core\Repositories\HCBaseRepository;
+
+class {repository} extends HCBaseRepository
+{
+
+    /**
+     * @return string
+     */
+    public function model(): string
+    {
+        return {model}::class;
+    }
+}
