@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types = 1);
+
+namespace {namespace};
+
+use HoneyComb\Companies\Repositories\{serviceName}Repository;
+
+class {serviceName}Service
+{
+    /**
+     * @var {serviceName}Repository
+     */
+    private $repository;
+
+    /**
+     * {serviceName}Service constructor.
+     * @param {serviceName}Repository $repository
+     */
+    public function __construct({serviceName}Repository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
+     * @return {serviceName}Repository
+     */
+    public function getRepository(): {serviceName}Repository
+    {
+        return $this->repository;
+    }
+}

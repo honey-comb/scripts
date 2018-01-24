@@ -9,6 +9,7 @@ use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 use HoneyComb\Scripts\Http\Controllers\HCScriptsFormsController;
 use HoneyComb\Scripts\Http\Controllers\HCScriptsModelsController;
 use HoneyComb\Scripts\Http\Controllers\HCScriptsRoutesController;
+use HoneyComb\Scripts\Http\Controllers\HCScriptsServiceController;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
@@ -107,6 +108,7 @@ class HCMakeService extends Command
         (new HCScriptsRoutesController($this->helper))->generate($this->config);
         (new HCScriptsModelsController($this->helper))->generate($this->config);
         (new HCScriptsFormsController($this->helper))->generate($this->config);
+        (new HCScriptsServiceController($this->helper))->generate($this->config);
 
         $this->config->getTranslation()->generate();
     }
