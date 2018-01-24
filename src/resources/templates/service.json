@@ -10,7 +10,8 @@
       "tableName": "",
       "modelName": "",
       "default": 1,
-      "use": ["translations"]
+      "use": ["translations"],
+      "repository": 1
     }
   ],
   "actions": {
