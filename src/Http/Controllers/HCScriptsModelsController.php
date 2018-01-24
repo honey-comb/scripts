@@ -59,6 +59,9 @@ class HCScriptsModelsController
 
         $modelType = "uuid";
         $destination = $this->config->getDirectory() . "Models/" . $data['model'] . '.php';
+        if (isset($model['repository']) && $model['repository'] == 1) {
+            $this->generateRepository($data);
+        }
 
         $this->helper->createFileFromTemplate($destination, 'service/models/' . $modelType . '.hctpl', $data);
     }
@@ -116,5 +119,19 @@ class HCScriptsModelsController
 
 
         return $value;
+    }
+
+    /**
+     * Generating repository
+     *
+     * @param $data
+     */
+    private function generateRepository(array $data)
+    {
+        $data['repository'] = $data['model'] . 'Repository';
+        $data['repositoryNs'] = $this->config->getPackageConfig()->getNamespaceForRepository();
+
+        $destination = $this->config->getDirectory() . 'Repositories/' . $data['repository'] . '.php';
+        $this->helper->createFileFromTemplate($destination, 'service/repository.hctpl', $data);
     }
 }
