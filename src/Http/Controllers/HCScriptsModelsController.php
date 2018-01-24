@@ -49,16 +49,17 @@ class HCScriptsModelsController
         $this->config->getModelConfig()->getFieldsForModel($model);
 
         $data = [
-            "namespace" => $this->config->getPackageConfig()->getNamespaceForModel(),
-            "model" => $model['modelName'],
-            "table" => $model['tableName'],
+            'namespace' => $this->config->getPackageConfig()->getNamespaceForModel(),
+            'model' => $model['modelName'],
+            'table' => $model['tableName'],
             "fields" => '"' . implode('", "', $model['fieldsModel']) . '"',
-            "useNamespaces" => $this->getNameSpaces($model['use']),
-            "useClassNames" => $this->getClassNames($model['use']),
+            'useNamespaces' => $this->getNameSpaces($model['use']),
+            'useClassNames' => $this->getClassNames($model['use']),
         ];
 
-        $modelType = "uuid";
-        $destination = $this->config->getDirectory() . "Models/" . $data['model'] . '.php';
+        $modelType = 'uuid';
+        $destination = $this->config->getDirectory() . 'Models/' . $data['model'] . '.php';
+
         if (isset($model['repository']) && $model['repository'] == 1) {
             $this->generateRepository($data);
         }
@@ -72,18 +73,18 @@ class HCScriptsModelsController
      */
     private function getNameSpaces(array $use): string
     {
-        $value = "";
+        $value = '';
 
         foreach ($use as $item) {
             switch ($item) {
-                case "ownership" :
+                case 'ownership' :
 
-                    $value .= "use HoneyComb\\Core\\Models\\Traits\\HCOwnership;\r\n";
+                    $value .= 'use HoneyComb\\Core\\Models\\Traits\\HCOwnership;' . "\r\n";
                     break;
 
-                case "translations" :
+                case 'translations' :
 
-                    $value .= "use HoneyComb\\Core\\Models\\Traits\\HCTranslation;\r\n";
+                    $value .= 'use HoneyComb\\Core\\Models\\Traits\\HCTranslation;' . "\r\n";
                     break;
             }
         }
@@ -97,26 +98,25 @@ class HCScriptsModelsController
      */
     private function getClassNames(array $use): string
     {
-        $value = "";
+        $value = '';
 
         foreach ($use as $item) {
             switch ($item) {
-                case "ownership" :
+                case 'ownership' :
 
-                    $value .= ", Ownership";
+                    $value .= ', Ownership';
                     break;
 
-                case "translations" :
+                case 'translations' :
 
-                    $value .= ", HCTranslation";
+                    $value .= ', HCTranslation';
                     break;
             }
         }
 
-        if ($value != "") {
-            $value = "use " . substr($value, 2) . ';';
+        if ($value != '') {
+            $value = 'use ' . substr($value, 2) . ';';
         }
-
 
         return $value;
     }
