@@ -154,6 +154,14 @@ class HCPackageDTO extends HCBaseDTO
     }
 
     /**
+     * @return string
+     */
+    public function getNamespaceForRepository(): string
+    {
+        return $this->namespace . 'Repositories';
+    }
+
+    /**
      * @return array
      */
     protected function jsonData(): array
