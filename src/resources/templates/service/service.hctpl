@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace {namespace};
 
-use HoneyComb\Companies\Repositories\{serviceName}Repository;
+use {namespaceClean}Repositories\{serviceName}Repository;
 
 class {serviceName}Service
 {

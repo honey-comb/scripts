@@ -74,8 +74,9 @@ class HCScriptsServiceController extends Controller
     private function generateService()
     {
         $data = [
-            "serviceName" => $this->config->getServiceName(),
-            "namespace" => $this->config->getPackageConfig()->getNamespaceForService(),
+            'serviceName' => $this->config->getServiceName(),
+            'namespace' => $this->config->getPackageConfig()->getNamespaceForService(),
+            'namespaceClean' => $this->config->getPackageConfig()->getNamespace(),
         ];
 
         $destination = $this->config->getDirectory() . 'Services/' . $data['serviceName'] . 'Service' . '.php';
