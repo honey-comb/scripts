@@ -3,7 +3,7 @@
 namespace {repositoryNs};
 
 use {namespace}\{model};
-use HoneyComb\Core\Repositories\HCBaseRepository;
+use HoneyComb\Starter\Repositories\HCBaseRepository;
 
 class {repository} extends HCBaseRepository
 {
