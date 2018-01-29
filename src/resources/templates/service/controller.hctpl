@@ -1,0 +1,44 @@
+<?php
+
+namespace {namespace};
+
+use {serviceNs}\{serviceName}Service;
+use HoneyComb\Core\Http\Controllers\HCBaseController;
+use HoneyComb\Core\Http\Controllers\Traits\HCAdminListHeaders;
+use HoneyComb\Starter\Helpers\HCFrontendResponse;
+use Illuminate\Database\Connection;
+use Illuminate\Http\JsonResponse;
+use Illuminate\View\View;
+
+class {serviceName}Controller extends HCBaseController
+{
+    use HCAdminListHeaders;
+
+    /**
+     * @var Connection
+     */
+    private $connection;
+
+    /**
+     * @var {serviceName}Service
+     */
+    private $service;
+
+    /**
+     * @var HCFrontendResponse
+     */
+    private $response;
+
+    /**
+     * {serviceName}Controller constructor.
+     * @param Connection $connection
+     * @param HCFrontendResponse $response
+     * @param {serviceName}Service $service
+     */
+    public function __construct(Connection $connection, HCFrontendResponse $response, {serviceName}Service $service)
+    {
+        $this->connection = $connection;
+        $this->response = $response;
+        $this->service = $service;
+    }
+}

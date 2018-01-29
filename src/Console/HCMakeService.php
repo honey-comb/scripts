@@ -31,6 +31,7 @@ namespace HoneyComb\Scripts\Console;
 
 use HoneyComb\Scripts\DTO\HCServiceDTO;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
+use HoneyComb\Scripts\Http\Controllers\HCScriptsControllerController;
 use HoneyComb\Scripts\Http\Controllers\HCScriptsFormsController;
 use HoneyComb\Scripts\Http\Controllers\HCScriptsModelsController;
 use HoneyComb\Scripts\Http\Controllers\HCScriptsRoutesController;
@@ -133,6 +134,7 @@ class HCMakeService extends Command
         (new HCScriptsModelsController($this->helper))->generate($this->config);
         (new HCScriptsFormsController($this->helper))->generate($this->config);
         (new HCScriptsServiceController($this->helper))->generate($this->config);
+        (new HCScriptsControllerController($this->helper))->generate($this->config);
 
         $this->config->getTranslation()->generate();
     }
