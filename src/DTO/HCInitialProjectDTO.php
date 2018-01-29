@@ -21,59 +21,51 @@
  * SOFTWARE.
  *
  * Contact InteractiveSolutions:
- * E-mail: hello@interactivesolutions.lt
+ * E-mail: info@interactivesolutions.lt
  * http://www.interactivesolutions.lt
  */
 
-declare(strict_types = 1);
+namespace HoneyComb\Scripts\DTO;
 
-namespace HoneyComb\Scripts\Providers;
 
-use HoneyComb\Scripts\Console\HCMakePackage;
-use HoneyComb\Scripts\Console\HCMakeService;
-use HoneyComb\Scripts\Console\HCPrepareProject;
-use HoneyComb\Starter\Providers\HCBaseServiceProvider;
+use HoneyComb\Starter\DTO\HCBaseDTO;
 
-/**
- * Class HCScriptsServiceProvider
- *
- * @package HoneyComb\Scripts\Providers
- */
-class HCScriptsServiceProvider extends HCBaseServiceProvider
+class HCInitialProjectDTO extends HCBaseDTO
 {
-    /**
-     * @var string
-     */
-    protected $homeDirectory = __DIR__;
+    private $packageName = "";
 
+    private $namespaceComposer = "App\\\\";
     /**
      * @var array
      */
-    protected $commands = [
-        HCMakePackage::class,
-        HCMakeService::class,
-        HCPrepareProject::class,
-    ];
+    private $data;
+
+    public function __construct(array $data)
+    {
+        $this->data = $data;
+    }
 
     /**
-     * Namespace
-     *
-     * @var string
+     * @return array
      */
-    protected $namespace = 'HoneyComb\Scripts\Http\Controllers';
+    public function getFolderList(): array
+    {
+        return $this->data['folders'];
+    }
 
     /**
-     * Provider name
-     *
-     * @var string
+     * @return array
      */
-    protected $packageName = 'HCScripts';
+    public function getFilesList(): array
+    {
+        return $this->data['files'];
+    }
 
     /**
-     * List of route paths to load
-     *
-     * @var array
+     * @return array
      */
-    protected $routes = [];
-
+    public function jsonData(): array
+    {
+        return get_object_vars($this);
+    }
 }

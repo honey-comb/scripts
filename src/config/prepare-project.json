@@ -1,0 +1,7 @@
+{
+  "folders": [],
+  "files": {
+    "app/hc-config.json": "shared/hc.config.hctpl",
+    "app/Providers/AppServiceProvider.php": "project/app.service.provider.hctpl"
+  }
+}

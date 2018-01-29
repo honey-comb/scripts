@@ -39,7 +39,7 @@
     "{packagePath}/.gitignore": "package/gitignore.hctpl",
     "{packagePath}/.gitattributes": "package/gitattributes.hctpl",
     "{packagePath}/composer.json": "package/composer.hctpl",
-    "{packagePath}/src/hc-config.json": "package/hc.config.hctpl",
+    "{packagePath}/src/hc-config.json": "shared/hc.config.hctpl",
     "{packagePath}/src/Helpers/helpers.php": "shared/empty.hctpl",
     "{packagePath}/src/Providers/{packageName}ServiceProvider.php": "package/service.provider.hctpl",
     "{packagePath}/src/database/seeds/{packageName}Seeder.php": "package/database.seeder.hctpl"
