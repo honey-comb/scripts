@@ -22,7 +22,7 @@ class {serviceName}Controller extends HCBaseController
     /**
      * @var {serviceName}Service
      */
-    private $service;
+    protected $service;
 
     /**
      * @var HCFrontendResponse
