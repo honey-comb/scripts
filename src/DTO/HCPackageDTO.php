@@ -2,7 +2,7 @@
 
 namespace HoneyComb\Scripts\DTO;
 
-use HoneyComb\Core\DTO\HCBaseDTO;
+use HoneyComb\Starter\DTO\HCBaseDTO;
 
 class HCPackageDTO extends HCBaseDTO
 {

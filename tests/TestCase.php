@@ -21,57 +21,45 @@
  * SOFTWARE.
  *
  * Contact InteractiveSolutions:
- * E-mail: hello@interactivesolutions.lt
+ * E-mail: info@interactivesolutions.lt
  * http://www.interactivesolutions.lt
  */
 
 declare(strict_types = 1);
 
-namespace HoneyComb\Scripts\Providers;
+namespace Tests;
 
-use HoneyComb\Scripts\Console\HCMakePackage;
-use HoneyComb\Scripts\Console\HCMakeService;
-use HoneyComb\Starter\Providers\HCBaseServiceProvider;
+
+use HoneyComb\Scripts\Providers\HCScriptsServiceProvider;
+use Illuminate\Foundation\Application;
 
 /**
- * Class HCScriptsServiceProvider
- *
- * @package HoneyComb\Scripts\Providers
+ * Class TestCase
+ * @package Tests
  */
-class HCScriptsServiceProvider extends HCBaseServiceProvider
+abstract class TestCase extends \Orchestra\Testbench\BrowserKit\TestCase
 {
     /**
-     * @var string
-     */
-    protected $homeDirectory = __DIR__;
-
-    /**
-     * @var array
-     */
-    protected $commands = [
-        HCMakePackage::class,
-        HCMakeService::class,
-    ];
-
-    /**
-     * Namespace
      *
-     * @var string
      */
-    protected $namespace = 'HoneyComb\Scripts\Http\Controllers';
+    protected function setUp()
+    {
+        parent::setUp();
+    }
 
     /**
-     * Provider name
-     *
-     * @var string
+     * @param Application $app
+     * @return array
      */
-    protected $packageName = 'HCScripts';
+    protected function getPackageProviders($app): array
+    {
+        return [
+            HCScriptsServiceProvider::class,
+        ];
+    }
 
-    /**
-     * List of route paths to load
-     *
-     * @var array
-     */
-    protected $routes = [];
-
+    protected function getEnvironmentSetUp($app)
+    {
+        parent::getEnvironmentSetUp($app);
+    }
 }

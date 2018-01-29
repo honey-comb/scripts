@@ -1,4 +1,31 @@
 <?php
+/**
+ * @copyright 2018 interactivesolutions
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * Contact InteractiveSolutions:
+ * E-mail: info@interactivesolutions.lt
+ * http://www.interactivesolutions.lt
+ */
+
+declare(strict_types = 1);
 
 namespace HoneyComb\Scripts\Http\Controllers;
 
@@ -6,6 +33,10 @@ use App\Http\Controllers\Controller;
 use HoneyComb\Scripts\DTO\HCServiceDTO;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 
+/**
+ * Class HCScriptsRoutesController
+ * @package HoneyComb\Scripts\Http\Controllers
+ */
 class HCScriptsRoutesController extends Controller
 {
     /**
@@ -69,13 +100,18 @@ class HCScriptsRoutesController extends Controller
                 ], false);
         }
 
-        $this->helper->createFileFromTemplate($this->getFullRoutePath($this->getRoutePath('Admin')), 'service/routes/route.admin.hctpl',
+        $this->helper->createFileFromTemplate($this->getFullRoutePath($this->getRoutePath('Admin')),
+            'service/routes/route.admin.hctpl',
             [
                 "index" => $this->getIndex($this->config->getActions()->getAdmin(), 'admin'),
                 "actions" => $actionList,
-                "url" => $this->config->getUrl()
+                "url" => $this->config->getUrl(),
             ]);
     }
+
+    /**
+     *
+     */
     private function generateApi()
     {
     }
@@ -90,9 +126,13 @@ class HCScriptsRoutesController extends Controller
         return $this->config->getDirectory() . $path;
     }
 
+    /**
+     * @param $directory
+     * @return string
+     */
     private function getRoutePath($directory)
     {
-        return  'Routes/' . $directory . '/routes.' . $this->config->getRouteName() . 's.php';
+        return 'Routes/' . $directory . '/routes.' . $this->config->getRouteName() . 's.php';
     }
 
     /**
@@ -101,7 +141,7 @@ class HCScriptsRoutesController extends Controller
      * @param array $actions
      * @return string
      */
-    private function getIndex (array $actions): string
+    private function getIndex(array $actions): string
     {
         $php = "";
 
@@ -219,13 +259,14 @@ class HCScriptsRoutesController extends Controller
 
             "name" => "acl." . $this->config->getRouteName(),
             "controller" => $packageConfig->getNamespaceForAdminController($this->config->getServiceName()),
-            "actions" => $this->permissions
+            "actions" => $this->permissions,
         ];
 
         $this->config->updatePackagePermissions($permission);
 
-        if ($this->config->getActions()->getAdmin())
+        if ($this->config->getActions()->getAdmin()) {
             $this->config->updatePackageRoutes($this->getRoutePath('Admin'));
+        }
 
     }
 }

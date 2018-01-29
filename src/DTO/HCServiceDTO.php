@@ -2,10 +2,9 @@
 
 namespace HoneyComb\Scripts\DTO;
 
-use HoneyComb\Core\DTO\HCBaseDTO;
+use HoneyComb\Starter\DTO\HCBaseDTO;;
 use HoneyComb\Scripts\Console\HCMakePackage;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
-use Illuminate\Support\Facades\DB;
 
 class HCServiceDTO extends HCBaseDTO
 {

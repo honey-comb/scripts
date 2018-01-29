@@ -1,12 +1,40 @@
 <?php
+/**
+ * @copyright 2018 interactivesolutions
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * Contact InteractiveSolutions:
+ * E-mail: info@interactivesolutions.lt
+ * http://www.interactivesolutions.lt
+ */
 
 declare(strict_types = 1);
 
 namespace HoneyComb\Scripts\Helpers;
 
-
 /**
  * Class HCFrontendResponse
+ * @package HoneyComb\Scripts\Helpers
+ */
+/**
+ * Class HCScriptsHelper
  * @package HoneyComb\Scripts\Helpers
  */
 class HCScriptsHelper
@@ -35,8 +63,9 @@ class HCScriptsHelper
 
     /**
      * @param string $message
+     * @throws \Exception
      */
-    public function abort (string $message)
+    public function abort(string $message)
     {
         throw new \Exception($message);
     }
@@ -76,16 +105,21 @@ class HCScriptsHelper
      * @param bool $createFile
      * @return string
      */
-    public function createFileFromTemplate(string $destination, string $templateLocation, array $content, bool $createFile = true): string
-    {
+    public function createFileFromTemplate(
+        string $destination,
+        string $templateLocation,
+        array $content,
+        bool $createFile = true
+    ): string {
         $destination = replaceBrackets($destination, $content);
 
         $template = file_get_contents(__DIR__ . '/../resources/templates/' . $templateLocation);
 
         $template = replaceBrackets($template, $content);
 
-        if (!$createFile)
+        if (!$createFile) {
             return $template;
+        }
 
         $directory = array_filter(explode('/', $destination));
         array_pop($directory);
@@ -129,7 +163,7 @@ class HCScriptsHelper
      */
     public function getHCConfig(string $directory): array
     {
-        return json_decode(file_get_contents( $directory . '/hc-config.json'), true);
+        return json_decode(file_get_contents($directory . '/hc-config.json'), true);
     }
 
     /**
