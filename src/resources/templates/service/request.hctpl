@@ -1,0 +1,79 @@
+<?php
+
+declare(strict_types = 1);
+
+namespace {namespace};
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class {serviceName}Request extends FormRequest
+{
+    /**
+     * Get request inputs
+     *
+     * @return array
+     */
+    public function getInput(): array
+    {
+        $data = [];
+
+        return $data;
+    }
+
+    /**
+     * Get ids to delete, force delete or restore
+     *
+     * @return array
+     */
+    public function getListIds(): array
+    {
+        return $this->input('list', []);
+    }
+
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules(): array
+    {
+        switch ($this->method()) {
+            case 'POST':
+                if ($this->segment(4) == 'restore') {
+                    return [
+                        'list' => 'required|array',
+                    ];
+                }
+
+                return [];
+                break;
+
+            case 'PUT':
+
+                return [];
+                break;
+
+            case 'PATCH':
+                return [];
+                break;
+
+            case 'DELETE':
+                return [
+                    'list' => 'required|array',
+                ];
+                break;
+        }
+
+        return [];
+    }
+}
