@@ -329,6 +329,19 @@ class HCServiceDTO extends HCBaseDTO
     }
 
     /**
+     * Updating package routes
+     * @param array $adminMenu
+     */
+    public function updateAdminMenu(array $adminMenu)
+    {
+        $config = $this->helper->getHCConfig($this->getDirectory());
+
+        $config['adminMenu'][] = $adminMenu;
+
+        $this->helper->setHCConfig($this->getDirectory(), $config);
+    }
+
+    /**
      * @return array
      */
     protected function jsonData(): array

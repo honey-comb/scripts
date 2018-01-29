@@ -72,7 +72,7 @@ class HCScriptsRoutesController extends Controller
 
         $this->generateAdmin();
         $this->generateApi();
-        $this->updateHCConfig();
+        $this->updateRoutes();
     }
 
     /**
@@ -251,7 +251,7 @@ class HCScriptsRoutesController extends Controller
     /**
      * Updating hc-config file
      */
-    private function updateHCConfig()
+    private function updateRoutes()
     {
         $packageConfig = $this->config->getPackageConfig();
 
@@ -266,7 +266,18 @@ class HCScriptsRoutesController extends Controller
 
         if ($this->config->getActions()->getAdmin()) {
             $this->config->updatePackageRoutes($this->getRoutePath('Admin'));
-        }
 
+            $adminMenu = [
+
+                'route' => 'admin.' . $this->config->getRouteName() .'.index',
+                'parent' => 'admin.index',
+                'translation' => $this->config->getTranslation()->getLabelFieldForForm('page_title'),
+                'icon' => $this->config->getIcon(),
+                'aclPermission' => $this->config->getAclPrefix() . '_list',
+            ];
+
+            $this->config->updateAdminMenu($adminMenu);
+
+        }
     }
 }
