@@ -64,8 +64,29 @@ class HCScriptsControllerController extends Controller
             'namespace' => $this->config->getPackageConfig()->getNamespaceForAdminController(),
             'serviceNs' => $this->config->getPackageConfig()->getNamespaceForService(),
             'serviceName' => $this->config->getServiceName(),
+            'translationLabel' => $this->config->getTranslation()->getLabelFieldForForm('page_title'),
+            'url' => $this->config->getUrl(),
+            'formName' => $this->config->getRouteName(),
+            'actionPrefix' => $this->config->getAclPrefix(),
+            'columnList' => $this->generateColumnList()
         ];
 
         $this->helper->createFileFromTemplate($this->config->getDirectory() . '/Http/Controllers/Admin/' . $this->config->getServiceName() . 'Controller.php','service/controller.hctpl', $data);
+    }
+
+    private function generateColumnList()
+    {
+        $model = $this->config->getModelConfig()->getDefaultModel();
+        $this->config->getModelConfig()->getFieldsForModel($model);
+
+        $fields = $model['fieldsModel'];
+        $columns = '';
+
+        foreach ($fields as $value)
+        {
+            $columns .= '\''. $value . '\' => $this->headerText(trans(\'' . $this->config->getTranslation()->getLabelFieldForForm($value) .'\')),';
+        }
+
+        return $columns;
     }
 }
