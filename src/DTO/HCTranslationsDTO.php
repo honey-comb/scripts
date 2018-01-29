@@ -136,8 +136,14 @@ class HCTranslationsDTO extends HCBaseDTO
      */
     public function setRootDirectory(string $packageName, string $directory)
     {
+        if ($directory == 'app/')
+            $directory = "";
+
         $this->rootDirectory = $directory . 'resources/lang/';
         $this->translationLocation = $directory == "" ? "" : $packageName . '::';
+
+        if ($this->translationLocation == "")
+            $this->translationPrefix = "";
     }
 
     /**
