@@ -107,13 +107,15 @@ class HCServiceModelsDTO extends HCBaseDTO
      */
     public function getDefaultModel()
     {
+        $default = null;
+
         foreach ($this->models as $model) {
             if ($model['default']) {
-                return $model;
+                return $default = $model;
             }
         }
 
-        return null;
+        return $default;
     }
 
     /**
