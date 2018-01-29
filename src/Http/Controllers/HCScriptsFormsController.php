@@ -86,7 +86,7 @@ class HCScriptsFormsController extends Controller
                 }
 
                 $fieldData['type'] = '"type" => ' . $this->getFieldType($field->Type) . ',';
-                $fieldData['label'] = '"label" => "' . $this->config->getTranslation()->getLabelFieldForForm($field->Field) . '",';
+                $fieldData['label'] = '"label" => trans("' . $this->config->getTranslation()->getLabelFieldForForm($field->Field) . '"),';
 
                 $structure .= $this->helper->createFileFromTemplate("", "service/forms/field.hctpl", $fieldData, false);
             }
