@@ -28,7 +28,7 @@
 declare(strict_types = 1);
 
 namespace {namespace};
-use HoneyComb\Core\Forms\HCBaseForm;
+use HoneyComb\Starter\Forms\HCBaseForm;
 
 /**
  * Class {serviceName}Form

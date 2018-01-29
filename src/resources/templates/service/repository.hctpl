@@ -1,12 +1,16 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace {repositoryNs};
 
 use {namespace}\{model};
+use HoneyComb\Core\Repositories\Traits\HCQueryBuilderTrait;
 use HoneyComb\Starter\Repositories\HCBaseRepository;
 
 class {repository} extends HCBaseRepository
 {
+    use HCQueryBuilderTrait;
 
     /**
      * @return string

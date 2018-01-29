@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace {namespace};
 
 use {serviceNs}\{serviceName}Service;
@@ -15,14 +17,14 @@ class {serviceName}Controller extends HCBaseController
     use HCAdminListHeaders;
 
     /**
-     * @var Connection
-     */
-    private $connection;
-
-    /**
      * @var {serviceName}Service
      */
     protected $service;
+
+    /**
+     * @var Connection
+     */
+    private $connection;
 
     /**
      * @var HCFrontendResponse
@@ -41,4 +43,36 @@ class {serviceName}Controller extends HCBaseController
         $this->response = $response;
         $this->service = $service;
     }
+
+    /**
+     * Admin panel page view
+     *
+     * @return View
+     */
+    public function index(): View
+    {
+        $config = [
+            'title' => trans('{translationLabel}'),
+            'url' => route('admin.api.{url}'),
+            'form' => route('admin.api.form-manager', ['{formName}']),
+            'headers' => $this->getTableColumns(),
+            'actions' => $this->getActions('{actionPrefix}'),
+        ];
+
+        return view('HCCore::admin.service.index', ['config' => $config]);
+    }
+
+    /**
+         * Get admin page table columns settings
+         *
+         * @return array
+         */
+        public function getTableColumns(): array
+        {
+            $columns = [
+                {columnList}
+            ];
+
+            return $columns;
+        }
 }
