@@ -55,4 +55,11 @@ class {packageName}ServiceProvider extends HCBaseServiceProvider
      * @var string
      */
     protected $namespace = '{namespace}\Http\Controllers';
+
+    /**
+     * Provider name
+     *
+     * @var string
+     */
+    protected $packageName = '{packageName}';
 }
