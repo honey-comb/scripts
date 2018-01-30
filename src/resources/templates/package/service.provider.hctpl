@@ -29,7 +29,7 @@ declare(strict_types = 1);
 
 namespace {namespace}\Providers;
 
-use HoneyComb\Core\Providers\HCBaseServiceProvider;
+use HoneyComb\Starter\Providers\HCBaseServiceProvider;
 
 /**
  * Class {packageName}ServiceProvider

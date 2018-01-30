@@ -1,4 +1,4 @@
-Route::get('/', '{serviceName}Controller@update')
+Route::put('/', '{serviceName}Controller@update')
     ->name('admin.api.{routeName}.update')
     ->middleware('acl:{aclPrefix}_admin_update');
 
