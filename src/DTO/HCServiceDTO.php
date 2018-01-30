@@ -342,6 +342,16 @@ class HCServiceDTO extends HCBaseDTO
     }
 
     /**
+     * Getting URL name
+     *
+     * @return string
+     */
+    public function getUrlName(): string
+    {
+        return $this->helper->stringWithDots($this->getUrl());
+    }
+
+    /**
      * @return array
      */
     protected function jsonData(): array

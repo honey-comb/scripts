@@ -65,7 +65,7 @@ class HCScriptsControllerController extends Controller
             'serviceNs' => $this->config->getPackageConfig()->getNamespaceForService(),
             'serviceName' => $this->config->getServiceName(),
             'translationLabel' => $this->config->getTranslation()->getLabelFieldForForm('page_title'),
-            'url' => $this->config->getUrl(),
+            'urlName' => $this->config->getUrlName(),
             'formName' => $this->config->getRouteName(),
             'actionPrefix' => $this->config->getAclPrefix(),
             'columnList' => $this->generateColumnList()
