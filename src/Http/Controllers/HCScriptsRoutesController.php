@@ -258,7 +258,7 @@ class HCScriptsRoutesController extends Controller
         $permission = [
 
             "name" => "acl." . $this->config->getRouteName(),
-            "controller" => $packageConfig->getNamespaceForAdminController($this->config->getServiceName()),
+            "controller" => $packageConfig->getNamespaceForAdminController(true),
             "actions" => $this->permissions,
         ];
 

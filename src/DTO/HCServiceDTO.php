@@ -129,6 +129,8 @@ class HCServiceDTO extends HCBaseDTO
         $this->packageConfig = new HCPackageDTO(json_decode(file_get_contents($this->getDirectory() . 'hc-config.json'),
             true));
 
+        $this->packageConfig->setServiceName($this->serviceName);
+
         $this->actions = new HCServiceActionsDTO($data['actions']);
         $this->modelConfig = new HCServiceModelsDTO($data['models'], $this->helper);
 

@@ -64,12 +64,22 @@ class HCScriptsControllerController extends Controller
             'namespace' => $this->config->getPackageConfig()->getNamespaceForAdminController(),
             'serviceNs' => $this->config->getPackageConfig()->getNamespaceForService(),
             'serviceName' => $this->config->getServiceName(),
+            'serviceNamespace' => $this->config->getPackageConfig()->getNamespaceForService(true),
             'translationLabel' => $this->config->getTranslation()->getLabelFieldForForm('page_title'),
             'urlName' => $this->config->getUrlName(),
             'formName' => $this->config->getRouteName(),
             'actionPrefix' => $this->config->getAclPrefix(),
-            'columnList' => $this->generateColumnList()
+            'columnList' => $this->generateColumnList(),
+            'request' => $this->config->getServiceName() . 'Request',
+            'requestNamespace' => $this->config->getPackageConfig()->getNameSpaceForRequest(true),
+            'modelNamespace' => $this->config->getPackageConfig()->getNamespaceForModel(true),
         ];
+
+        $data['create'] = $this->getCreateAction(['request' => $data['request']]);
+        $data['update'] = $this->getUpdateAction(['request' => $data['request']]);
+        $data['deleteSoft'] = $this->getDeleteSoftAction(['request' => $data['request']]);
+        $data['restore'] = $this->getRestoreAction(['request' => $data['request']]);
+        $data['deleteForce'] = $this->getDeleteForceAction(['request' => $data['request']]);
 
         $this->helper->createFileFromTemplate($this->config->getDirectory() . '/Http/Controllers/Admin/' . $this->config->getServiceName() . 'Controller.php','service/controller.hctpl', $data);
     }
@@ -88,5 +98,103 @@ class HCScriptsControllerController extends Controller
         }
 
         return $columns;
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    private function getCreateAction(array $data): string
+    {
+        $string = '';
+
+        if (in_array('create', $this->config->getActions()->getAdmin()))
+        {
+            if ($this->config->isMultiLanguage()) {
+                $template = 'service/controller/action.create.m.hctpl';
+            } else {
+                $template = 'service/controller/action.create.hctpl';
+            }
+
+            $string = $this->helper->createFileFromTemplate('', $template, $data, false);
+        }
+
+        return $string;
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    private function getUpdateAction(array $data): string
+    {
+        $string = '';
+
+        if (in_array('update', $this->config->getActions()->getAdmin()))
+        {
+            if ($this->config->isMultiLanguage()) {
+                $template = 'service/controller/action.update.m.hctpl';
+            } else {
+                $template = 'service/controller/action.update.hctpl';
+            }
+
+            $string = $this->helper->createFileFromTemplate('', $template, $data, false);
+        }
+
+        return $string;
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    private function getDeleteSoftAction(array $data): string
+    {
+        $string = '';
+
+        if (in_array('delete', $this->config->getActions()->getAdmin()))
+        {
+            $template = 'service/controller/action.deleteSoft.hctpl';
+
+            $string = $this->helper->createFileFromTemplate('', $template, $data, false);
+        }
+
+        return $string;
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    private function getRestoreAction(array $data): string
+    {
+        $string = '';
+
+        if (in_array('restore', $this->config->getActions()->getAdmin()))
+        {
+            $template = 'service/controller/action.restore.hctpl';
+
+            $string = $this->helper->createFileFromTemplate('', $template, $data, false);
+        }
+
+        return $string;
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    private function getDeleteForceAction(array $data): string
+    {
+        $string = '';
+
+        if (in_array('delete_force', $this->config->getActions()->getAdmin()))
+        {
+            $template = 'service/controller/action.deleteForce.hctpl';
+
+            $string = $this->helper->createFileFromTemplate('', $template, $data, false);
+        }
+
+        return $string;
     }
 }

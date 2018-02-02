@@ -13,11 +13,9 @@ class {serviceName}Request extends FormRequest
      *
      * @return array
      */
-    public function getInput(): array
+    public function getRecordData(): array
     {
-        $data = [];
-
-        return $data;
+        return request()->all();
     }
 
     /**
@@ -28,6 +26,16 @@ class {serviceName}Request extends FormRequest
     public function getListIds(): array
     {
         return $this->input('list', []);
+    }
+
+    /**
+     * Getting translations
+     *
+     * @return array
+     */
+    public function getTranslations(): array
+    {
+        return $this->input('translations', []);
     }
 
     /**
@@ -56,22 +64,18 @@ class {serviceName}Request extends FormRequest
                 }
 
                 return [];
-                break;
 
             case 'PUT':
 
                 return [];
-                break;
 
             case 'PATCH':
                 return [];
-                break;
 
             case 'DELETE':
                 return [
                     'list' => 'required|array',
                 ];
-                break;
         }
 
         return [];

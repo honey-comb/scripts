@@ -51,6 +51,12 @@ class HCPackageDTO extends HCBaseDTO
     private $data;
 
     /**
+     * Service name
+     * @var string
+     */
+    private $serviceName;
+
+    /**
      * HCPackageDTO constructor.
      * @param array $data
      */
@@ -119,26 +125,33 @@ class HCPackageDTO extends HCBaseDTO
     /**
      * Getting namespace for controller
      *
-     * @param string $serviceName
+     * @param bool $full
      * @return string
      */
-    public function getNamespaceForAdminController(string $serviceName = ""): string
+    public function getNamespaceForAdminController(bool $full = false): string
     {
-        if ($serviceName === "") {
-            return $this->namespace . 'Http\Controllers\\Admin';
-        }
+        $ns = $this->namespace . 'Http\Controllers\\Admin';
 
-        return $this->namespace . 'Http\Controllers\\Admin\\' . $serviceName . 'Controller';
+        if ($full)
+            $ns .= '\\' . $this->serviceName . 'Controller';
+
+        return $ns;
     }
 
     /**
      * Getting namespace for model
      *
+     * @param bool $full
      * @return string
      */
-    public function getNamespaceForModel(): string
+    public function getNamespaceForModel(bool $full = false): string
     {
-        return $this->namespace . 'Models';
+        $ns = $this->namespace . 'Models';
+
+        if ($full)
+            $ns .= '\\' . $this->serviceName;
+
+        return $ns;
     }
 
     /**
@@ -150,35 +163,67 @@ class HCPackageDTO extends HCBaseDTO
     }
 
     /**
+     * @param bool $full
      * @return string
      */
-    public function getNamespaceForForm(): string
+    public function getNamespaceForForm(bool $full = false): string
     {
-        return $this->namespace . 'Forms';
+        $ns = $this->namespace . 'Forms';
+
+        if ($full)
+            $ns .= '\\' . $this->serviceName . 'Form';
+
+        return $ns;
     }
 
     /**
+     * @param bool $full
      * @return string
      */
-    public function getNamespaceForRepository(): string
+    public function getNamespaceForRepository(bool $full = false): string
     {
-        return $this->namespace . 'Repositories';
+        $ns = $this->namespace . 'Repositories';
+
+        if ($full)
+            $ns .= '\\' . $this->serviceName . 'Repository';
+
+        return $ns;
     }
 
     /**
+     * @param bool $full
      * @return string
      */
-    public function getNamespaceForService(): string
+    public function getNamespaceForService(bool $full = false): string
     {
-        return $this->namespace . 'Services';
+        $ns = $this->namespace . 'Services';
+
+        if ($full)
+            $ns .= '\\' . $this->serviceName . 'Service';
+
+        return $ns;
     }
 
     /**
+     * @param bool $full
      * @return string
      */
-    public function getNameSpaceForRequest(): string
+    public function getNameSpaceForRequest(bool $full = false): string
     {
-        return $this->namespace . 'Requests';
+        $ns = $this->namespace . 'Requests';
+
+        if ($full)
+            $ns .= '\\' . $this->serviceName . 'Request';
+
+        return $ns;
+    }
+
+    /**
+     * @param string $serviceName
+     */
+    public function setServiceName(string $serviceName)
+    {
+        $this->serviceName = $serviceName;
     }
 
     /**
