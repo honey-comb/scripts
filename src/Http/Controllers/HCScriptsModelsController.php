@@ -86,7 +86,11 @@ class HCScriptsModelsController
             "fields" => '"' . implode('", "', $model['fieldsModel']) . '"',
             'useNamespaces' => $this->getNameSpaces($model['use']),
             'useClassNames' => $this->getClassNames($model['use']),
+            'with' => "",
         ];
+
+        if ($this->config->isMultiLanguage() && isset($model['default']) && $model['default'] === 1)
+            $data['with'] = "'translations'";
 
         $modelType = 'uuid';
         $destination = $this->config->getDirectory() . 'Models/' . $data['model'] . '.php';
@@ -161,8 +165,77 @@ class HCScriptsModelsController
     {
         $data['repository'] = $data['model'] . 'Repository';
         $data['repositoryNs'] = $this->config->getPackageConfig()->getNamespaceForRepository();
+        $data['softDelete'] = $this->getActionSoftDelete($data);
+        $data['restore'] = $this->getActionRestore($data);
+        $data['deleteForce'] = $this->getActionForceDelete($data);
 
         $destination = $this->config->getDirectory() . 'Repositories/' . $data['repository'] . '.php';
         $this->helper->createFileFromTemplate($destination, 'service/repository.hctpl', $data);
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    private function getActionSoftDelete(array $data)
+    {
+        $string = "";
+
+        if (in_array("delete", $this->config->getActions()->getAdmin())) {
+
+            if ($this->config->isMultiLanguage()) {
+                $template = 'service/repository/action.deleteSoft.m.hctpl';
+            } else {
+                $template = 'service/repository/action.deleteSoft.hctpl';
+            }
+
+            $string = $this->helper->createFileFromTemplate('', $template, $data, false);
+        }
+
+        return $string;
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    private function getActionRestore(array $data)
+    {
+        $string = "";
+
+        if (in_array("restore", $this->config->getActions()->getAdmin())) {
+
+            if ($this->config->isMultiLanguage()) {
+                $template = 'service/repository/action.restore.m.hctpl';
+            } else {
+                $template = 'service/repository/action.restore.hctpl';
+            }
+
+            $string = $this->helper->createFileFromTemplate('', $template, $data, false);
+        }
+
+        return $string;
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    private function getActionForceDelete(array $data)
+    {
+        $string = "";
+
+        if (in_array("delete_force", $this->config->getActions()->getAdmin())) {
+
+            if ($this->config->isMultiLanguage()) {
+                $template = 'service/repository/action.deleteForce.m.hctpl';
+            } else {
+                $template = 'service/repository/action.deleteForce.hctpl';
+            }
+
+            $string = $this->helper->createFileFromTemplate('', $template, $data, false);
+        }
+
+        return $string;
     }
 }

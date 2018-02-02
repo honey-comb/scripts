@@ -1,0 +1,15 @@
+/**
+ * Restore soft deleted records
+ *
+ * @param array $ids
+ * @return void
+ */
+public function restore(array $ids): void
+{
+    $records = $this->makeQuery()->withTrashed()->whereIn('id', $ids)->get();
+
+    foreach ($records as $record) {
+        /** @var {model} $record */
+        $record->restore();
+    }
+}

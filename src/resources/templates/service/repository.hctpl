@@ -19,4 +19,10 @@ class {repository} extends HCBaseRepository
     {
         return {model}::class;
     }
+
+    {softDelete}
+
+    {restore}
+
+    {deleteForce}
 }

@@ -1,0 +1,14 @@
+/**
+ * Soft deleting records
+ * @param $ids
+ */
+public function deleteSoft(array $ids): void
+{
+    $records = $this->makeQuery()->whereIn('id', $ids)->get();
+
+    foreach ($records as $record) {
+       /** @var {model} $record */
+        $record->translations()->delete();
+        $record->delete();
+    }
+}

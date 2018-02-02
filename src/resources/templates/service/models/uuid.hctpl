@@ -55,4 +55,12 @@ class {model} extends HCUuidModel
     protected $fillable = [
         {fields}
     ];
+
+    /**
+     * @var array
+     */
+    protected $with = [
+        {with}
+    ];
+
 }
