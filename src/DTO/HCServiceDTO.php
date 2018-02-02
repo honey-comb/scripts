@@ -294,7 +294,7 @@ class HCServiceDTO extends HCBaseDTO
             }
 
             if (!$existing) {
-                $config['acl']['permissions'] = array_merge($config['acl']['permissions'], $data);
+                $config['acl']['permissions'][] = $data;
             }
         }
 
