@@ -41,6 +41,7 @@ class {serviceName}Form extends HCBaseForm
      *
      * @param bool $edit
      * @return array
+     * @throws \Illuminate\Container\EntryNotFoundException
      */
     public function createForm(bool $edit = false): array
     {
@@ -55,10 +56,8 @@ class {serviceName}Form extends HCBaseForm
         ];
 
         if ($this->multiLanguage) {
-            $form['availableLanguages'] = [];
+            $form['availableLanguages'] = getHCContentLanguages(true);
         }
-
-        //TOTO implement honeycomb-languages package getAvailableLanguages
 
         return $form;
     }
