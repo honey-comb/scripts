@@ -1,14 +1,14 @@
 /**
-     * Updating menu group record
-     *
-     * @param {request} $request
-     * @param string $id
-     * @return JsonResponse
-     */
-    public function update ({request} $request, string $id) : JsonResponse
-    {
-        $model = $this->service->getRepository()->findOneBy(['id' => $id]);
-        $model->update($request->getRecordData());
+ * Update record
+ *
+ * @param {request} $request
+ * @param string $id
+ * @return JsonResponse
+ */
+public function update({request} $request, string $id): JsonResponse
+{
+    $model = $this->service->getRepository()->findOneBy(['id' => $id]);
+    $model->update($request->getRecordData());
 
-        return $this->response->success("Created");
-    }
+    return $this->response->success("Created");
+}
