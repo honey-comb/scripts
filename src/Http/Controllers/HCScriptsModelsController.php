@@ -89,17 +89,17 @@ class HCScriptsModelsController
             'with' => "",
         ];
 
-        if ($this->config->isMultiLanguage() && isset($model['default']) && $model['default'] === 1)
+        if ($this->config->isMultiLanguage() && isset($model['default']) && $model['default'] === 1) {
             $data['with'] = "'translations'";
+        }
 
-        $modelType = 'uuid';
         $destination = $this->config->getDirectory() . 'Models/' . $data['model'] . '.php';
 
         if (isset($model['repository']) && $model['repository'] == 1) {
             $this->generateRepository($data);
         }
 
-        $this->helper->createFileFromTemplate($destination, 'service/models/' . $modelType . '.hctpl', $data);
+        $this->helper->createFileFromTemplate($destination, 'service/models/' . $this->getModelType($data['use']) . '.hctpl', $data);
     }
 
     /**
@@ -237,5 +237,22 @@ class HCScriptsModelsController
         }
 
         return $string;
+    }
+
+    /**
+     * @param array $use
+     * @return string
+     */
+    private function getModelType(array $use): string
+    {
+        if (in_array('uuid', $use)) {
+            return 'uuid';
+        }
+
+        if (in_array('conn', $use)) {
+            return 'base';
+        }
+
+        return 'uuid';
     }
 }

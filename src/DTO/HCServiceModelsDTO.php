@@ -150,9 +150,9 @@ class HCServiceModelsDTO extends HCBaseDTO
     private function createTranslationsModel(array $model): array
     {
         return [
-            'tableName' => $model['tableName'] . '_translations',
-            'modelName' => $model['modelName'] . 'Translations',
-            'use' => [],
+            'tableName' => $model['tableName'] . '_translation',
+            'modelName' => $model['modelName'] . 'Translation',
+            'use' => ['base'],
         ];
     }
 }

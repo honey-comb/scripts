@@ -56,7 +56,7 @@ class {serviceName}Form extends HCBaseForm
         ];
 
         if ($this->multiLanguage) {
-            $form['availableLanguages'] = getHCContentLanguages(true);
+            $form['availableLanguages'] = getHCContentLanguages();
         }
 
         return $form;
