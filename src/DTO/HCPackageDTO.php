@@ -130,7 +130,7 @@ class HCPackageDTO extends HCBaseDTO
      */
     public function getNamespaceForAdminController(bool $full = false): string
     {
-        $ns = $this->namespace . 'Http\Controllers\\Admin';
+        $ns = $this->namespace . 'Http\\Controllers\\Admin';
 
         if ($full)
             $ns .= '\\' . $this->serviceName . 'Controller';
@@ -210,7 +210,7 @@ class HCPackageDTO extends HCBaseDTO
      */
     public function getNameSpaceForRequest(bool $full = false): string
     {
-        $ns = $this->namespace . 'Requests';
+        $ns = $this->namespace . 'Http\\Requests';
 
         if ($full)
             $ns .= '\\' . $this->serviceName . 'Request';

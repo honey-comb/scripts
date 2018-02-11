@@ -1,23 +1,23 @@
 /**
-     * Creating record
-     *
-     * @param {request} $request
-     * @return JsonResponse
-     */
-    public function store ({request} $request) : JsonResponse
-    {
-        $this->connection->beginTransaction();
+ * Create record
+ *
+ * @param {request} $request
+ * @return JsonResponse
+ * @throws \Throwable
+ */
+public function store ({request} $request): JsonResponse
+{
+    $this->connection->beginTransaction();
 
-        try {
-            $model = $this->service->getRepository()->create($request->getRecordData());
+    try {
+        $model = $this->service->getRepository()->create($request->getRecordData());
 
-            $this->connection->commit();
-        } catch (\Exception $e)
-        {
-            $this->connection->rollBack();
+        $this->connection->commit();
+    } catch (\Throwable $e) {
+        $this->connection->rollBack();
 
-            return $this->response->error($e->getMessage());
-        }
-
-        return $this->response->success("Created");
+        return $this->response->error($e->getMessage());
     }
+
+    return $this->response->success("Created");
+}
