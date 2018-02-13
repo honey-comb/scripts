@@ -132,7 +132,7 @@ class HCScriptsRoutesController extends Controller
      */
     private function getRoutePath($directory)
     {
-        return 'Routes/' . $directory . '/routes.' . $this->config->getRouteName() . 's.php';
+        return 'Routes/' . $directory . '/routes.' . $this->config->getRouteName() . '.php';
     }
 
     /**

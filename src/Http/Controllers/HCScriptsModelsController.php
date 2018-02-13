@@ -99,7 +99,7 @@ class HCScriptsModelsController
             $this->generateRepository($data);
         }
 
-        $this->helper->createFileFromTemplate($destination, 'service/models/' . $this->getModelType($data['use']) . '.hctpl', $data);
+        $this->helper->createFileFromTemplate($destination, 'service/models/' . $this->getModelType($model['use']) . '.hctpl', $data);
     }
 
     /**
@@ -139,7 +139,7 @@ class HCScriptsModelsController
             switch ($item) {
                 case 'ownership' :
 
-                    $value .= ', Ownership';
+                    $value .= ', HCOwnership';
                     break;
 
                 case 'translations' :
