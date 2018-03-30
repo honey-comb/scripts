@@ -29,8 +29,8 @@ declare(strict_types = 1);
 
 namespace HoneyComb\Scripts\Console;
 
-use HoneyComb\Scripts\DTO\HCInitialProjectDTO;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
+use HoneyComb\Scripts\Http\Resources\HCInitialProjectResource;
 use Illuminate\Console\Command;
 
 /**
@@ -61,7 +61,7 @@ class HCPrepareProject extends Command
     /**
      * Configuration for services creation
      *
-     * @var HCInitialProjectDTO
+     * @var HCInitialProjectResource
      */
     private $config;
 
@@ -83,7 +83,7 @@ class HCPrepareProject extends Command
      */
     public function handle(): void
     {
-        $this->config = new HCInitialProjectDTO($this->getConfiguration());
+        $this->config = new HCInitialProjectResource($this->getConfiguration());
 
         $this->createFiles();
     }

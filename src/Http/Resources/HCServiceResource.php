@@ -1,12 +1,43 @@
 <?php
+/**
+ * @copyright 2018 interactivesolutions
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * Contact InteractiveSolutions:
+ * E-mail: hello@interactivesolutions.lt
+ * http://www.interactivesolutions.lt
+ */
 
-namespace HoneyComb\Scripts\DTO;
+namespace HoneyComb\Scripts\Http\Resources;
 
-use HoneyComb\Starter\DTO\HCBaseDTO;;
+use HoneyComb\Scripts\Http\Resources\HCPackageResource;
+use HoneyComb\Scripts\Http\Resources\HCServiceActionsResource;
 use HoneyComb\Scripts\Console\HCMakePackage;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
+use HoneyComb\Starter\Http\Resources\HCBaseResource;
 
-class HCServiceDTO extends HCBaseDTO
+/**
+ * Class HCServiceResource
+ * @package HoneyComb\Scripts\Http\Resources
+ */
+class HCServiceResource extends HCBaseResource
 {
     /**
      * Scripts helper
@@ -40,8 +71,7 @@ class HCServiceDTO extends HCBaseDTO
     private $icon;
 
     /**
-     * Package configuration
-     * @var HCPackageDTO
+     * @var HCPackageResource
      */
     private $packageConfig;
 
@@ -84,26 +114,27 @@ class HCServiceDTO extends HCBaseDTO
 
     /**
      * Setting
-     * @var HCServiceActionsDTO
+     * @var HCServiceActionsResource
      */
     private $actions;
 
     /**
-     * @var HCServiceModelsDTO
+     * @var HCServiceModelsResource
      */
     private $modelConfig;
 
     /**
      * Translations
-     * @var HCTranslationsDTO
+     * @var HCTranslationsResource
      */
     private $translation;
 
 
     /**
-     * HCServiceDTO constructor.
+     * HCServiceResource constructor.
      * @param array $data
      * @param $helper
+     * @throws \Exception
      */
     public function __construct(array $data, $helper)
     {
@@ -126,15 +157,15 @@ class HCServiceDTO extends HCBaseDTO
             $this->editForm = true;
         }
 
-        $this->packageConfig = new HCPackageDTO(json_decode(file_get_contents($this->getDirectory() . 'hc-config.json'),
+        $this->packageConfig = new HCPackageResource(json_decode(file_get_contents($this->getDirectory() . 'hc-config.json'),
             true));
 
         $this->packageConfig->setServiceName($this->serviceName);
 
-        $this->actions = new HCServiceActionsDTO($data['actions']);
-        $this->modelConfig = new HCServiceModelsDTO($data['models'], $this->helper);
+        $this->actions = new HCServiceActionsResource($data['actions']);
+        $this->modelConfig = new HCServiceModelsResource($data['models'], $this->helper);
 
-        $this->translation = new HCTranslationsDTO($this->modelConfig, $this->helper);
+        $this->translation = new HCTranslationsResource($this->modelConfig, $this->helper);
         $this->translation->setRootDirectory($this->packageConfig->getPackageName(), $this->getDirectory());
         $this->translation->setTranslationPrefix($this->getUrl());
 
@@ -190,9 +221,9 @@ class HCServiceDTO extends HCBaseDTO
     }
 
     /**
-     * @return HCPackageDTO
+     * @return HCPackageResource
      */
-    public function getPackageConfig(): HCPackageDTO
+    public function getPackageConfig(): HCPackageResource
     {
         return $this->packageConfig;
     }
@@ -246,25 +277,25 @@ class HCServiceDTO extends HCBaseDTO
     }
 
     /**
-     * @return HCServiceModelsDTO
+     * @return HCServiceModelsResource
      */
-    public function getModelConfig(): HCServiceModelsDTO
+    public function getModelConfig(): HCServiceModelsResource
     {
         return $this->modelConfig;
     }
 
     /**
-     * @return HCServiceActionsDTO
+     * @return HCServiceActionsResource
      */
-    public function getActions(): HCServiceActionsDTO
+    public function getActions(): HCServiceActionsResource
     {
         return $this->actions;
     }
 
     /**
-     * @return HCTranslationsDTO
+     * @return HCTranslationsResource
      */
-    public function getTranslation(): HCTranslationsDTO
+    public function getTranslation(): HCTranslationsResource
     {
         return $this->translation;
     }

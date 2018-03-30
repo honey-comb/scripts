@@ -21,16 +21,19 @@
  * SOFTWARE.
  *
  * Contact InteractiveSolutions:
- * E-mail: info@interactivesolutions.lt
+ * E-mail: hello@interactivesolutions.lt
  * http://www.interactivesolutions.lt
  */
 
-namespace HoneyComb\Scripts\DTO;
+namespace HoneyComb\Scripts\Http\Resources;
 
+use HoneyComb\Starter\Http\Resources\HCBaseResource;
 
-use HoneyComb\Starter\DTO\HCBaseDTO;
-
-class HCInitialProjectDTO extends HCBaseDTO
+/**
+ * Class HCInitialProjectResource
+ * @package HoneyComb\Scripts\Http\Resources
+ */
+class HCInitialProjectResource extends HCBaseResource
 {
     private $packageName = "";
 

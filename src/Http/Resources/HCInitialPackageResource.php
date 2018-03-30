@@ -21,50 +21,86 @@
  * SOFTWARE.
  *
  * Contact InteractiveSolutions:
- * E-mail: info@interactivesolutions.lt
+ * E-mail: hello@interactivesolutions.lt
  * http://www.interactivesolutions.lt
  */
 
-namespace HoneyComb\Scripts\Http\Controllers;
+declare(strict_types = 1);
 
-use App\Http\Controllers\Controller;
-use HoneyComb\Scripts\Helpers\HCScriptsHelper;
-use HoneyComb\Scripts\Http\Resources\HCServiceResource;
+namespace HoneyComb\Scripts\Http\Resources;
 
-class HCScriptsRequestController extends Controller
+use HoneyComb\Starter\Http\Resources\HCBaseResource;
+
+
+/**
+ * Class HCInitialPackageResource
+ * @package HoneyComb\Scripts\Http\Resources
+ */
+class HCInitialPackageResource extends HCBaseResource
 {
     /**
-     * @var HCScriptsHelper
+     * @var array
      */
-    private $helper;
+    private $data;
 
     /**
-     * @var HCServiceResource
+     * @var string
      */
-    private $config;
+    public $packagePath;
 
     /**
-     * HCScriptsRoutesController constructor.
-     * @param HCScriptsHelper $helper
+     * @var string
      */
-    public function __construct(HCScriptsHelper $helper)
+    public $namespace;
+
+    /**
+     * @var string
+     */
+    public $namespaceComposer;
+
+    /**
+     * @var string
+     */
+    public $packageName;
+
+    /**
+     * HCInitialPackageResource constructor.
+     * @param array $data
+     */
+    public function __construct(array $data)
     {
-        $this->helper = $helper;
+        $this->data = $data;
     }
 
     /**
-     * @param HCServiceResource $config
-     * @throws \Exception
+     * @return array
      */
-    public function generate(HCServiceResource &$config)
+    public function getData(): array
     {
-        $this->config = $config;
+        return $this->data;
+    }
 
-        $data = [
-            'namespace' => $this->config->getPackageConfig()->getNameSpaceForRequest(),
-            'serviceName' => $this->config->getServiceName(),
-        ];
+    /**
+     * @return array
+     */
+    public function getFolderList(): array
+    {
+        return $this->data['folders'];
+    }
 
-        $this->helper->createFileFromTemplate($this->config->getDirectory() . '/Http/Requests/' . $this->config->getServiceName() . 'Request.php','service/request.hctpl', $data);
+    /**
+     * @return array
+     */
+    public function getFilesList(): array
+    {
+        return $this->data['files'];
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonData(): array
+    {
+        return get_object_vars($this);
     }
 }

@@ -29,7 +29,6 @@ declare(strict_types = 1);
 
 namespace HoneyComb\Scripts\Console;
 
-use HoneyComb\Scripts\DTO\HCServiceDTO;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 use HoneyComb\Scripts\Http\Controllers\HCScriptsControllerController;
 use HoneyComb\Scripts\Http\Controllers\HCScriptsFormsController;
@@ -37,6 +36,7 @@ use HoneyComb\Scripts\Http\Controllers\HCScriptsModelsController;
 use HoneyComb\Scripts\Http\Controllers\HCScriptsRequestController;
 use HoneyComb\Scripts\Http\Controllers\HCScriptsRoutesController;
 use HoneyComb\Scripts\Http\Controllers\HCScriptsServiceController;
+use HoneyComb\Scripts\Http\Resources\HCServiceResource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
@@ -75,7 +75,7 @@ class HCMakeService extends Command
     /**
      * Configuration for services creation
      *
-     * @var HCServiceDTO
+     * @var HCServiceResource
      */
     private $config;
 
@@ -119,7 +119,7 @@ class HCMakeService extends Command
                     $this->helper->abort($file->getFilename() . ' has Invalid JSON format.');
                 }
 
-                $this->config = new HCServiceDTO($config, $this->helper);
+                $this->config = new HCServiceResource($config, $this->helper);
 
                 break;
             }

@@ -21,19 +21,23 @@
  * SOFTWARE.
  *
  * Contact InteractiveSolutions:
- * E-mail: info@interactivesolutions.lt
+ * E-mail: hello@interactivesolutions.lt
  * http://www.interactivesolutions.lt
  */
 
 declare(strict_types = 1);
 
-namespace HoneyComb\Scripts\DTO;
+namespace HoneyComb\Scripts\Http\Resources;
 
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
-use HoneyComb\Starter\DTO\HCBaseDTO;
+use HoneyComb\Starter\Http\Resources\HCBaseResource;
 use Illuminate\Support\Facades\DB;
 
-class HCServiceModelsDTO extends HCBaseDTO
+/**
+ * Class HCServiceModelsResource
+ * @package HoneyComb\Scripts\Http\Resources
+ */
+class HCServiceModelsResource extends HCBaseResource
 {
     /**
      * @var HCScriptsHelper
@@ -62,9 +66,10 @@ class HCServiceModelsDTO extends HCBaseDTO
     private $models;
 
     /**
-     * HCServiceModelsDTO constructor.
+     * HCServiceModelsResource constructor.
      * @param array $models
      * @param HCScriptsHelper $helper
+     * @throws \Exception
      */
     public function __construct(array $models, HCScriptsHelper $helper)
     {

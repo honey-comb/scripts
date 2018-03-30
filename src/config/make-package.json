@@ -5,7 +5,6 @@
     "src/Contracts",
     "src/database/migrations",
     "src/database/seeds",
-    "src/DTO",
     "src/Enum",
     "src/Forms",
     "src/Helpers",

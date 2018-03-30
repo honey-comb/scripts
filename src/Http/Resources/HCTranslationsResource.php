@@ -21,21 +21,21 @@
  * SOFTWARE.
  *
  * Contact InteractiveSolutions:
- * E-mail: info@interactivesolutions.lt
+ * E-mail: hello@interactivesolutions.lt
  * http://www.interactivesolutions.lt
  */
 declare(strict_types = 1);
 
-namespace HoneyComb\Scripts\DTO;
+namespace HoneyComb\Scripts\Http\Resources;
 
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
-use HoneyComb\Starter\DTO\HCBaseDTO;
+use HoneyComb\Starter\Http\Resources\HCBaseResource;
 
 /**
- * Class HCTranslationsDTO
- * @package HoneyComb\Scripts\DTO
+ * Class HCTranslationsResource
+ * @package HoneyComb\Scripts\Http\Resources
  */
-class HCTranslationsDTO extends HCBaseDTO
+class HCTranslationsResource extends HCBaseResource
 {
 
     /**
@@ -76,11 +76,11 @@ class HCTranslationsDTO extends HCBaseDTO
     private $translationLocation;
 
     /**
-     * HCServiceDTO constructor.
-     * @param HCServiceModelsDTO $models
+     * HCTranslationsResource constructor.
+     * @param HCServiceModelsResource $models
      * @param HCScriptsHelper $helper
      */
-    public function __construct(HCServiceModelsDTO $models, HCScriptsHelper $helper)
+    public function __construct(HCServiceModelsResource $models, HCScriptsHelper $helper)
     {
         $this->helper = $helper;
         $this->models = $models;

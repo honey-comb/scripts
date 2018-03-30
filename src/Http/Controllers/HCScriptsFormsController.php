@@ -29,8 +29,8 @@ declare(strict_types = 1);
 namespace HoneyComb\Scripts\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use HoneyComb\Scripts\DTO\HCServiceDTO;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
+use HoneyComb\Scripts\Http\Resources\HCServiceResource;
 
 /**
  * Class HCScriptsFormsController
@@ -39,7 +39,7 @@ use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 class HCScriptsFormsController extends Controller
 {
     /**
-     * @var HCServiceDTO
+     * @var HCServiceResource
      */
     private $config;
 
@@ -58,10 +58,10 @@ class HCScriptsFormsController extends Controller
     }
 
     /**
-     * @param HCServiceDTO $config
+     * @param HCServiceResource $config
      * @throws \Exception
      */
-    public function generate(HCServiceDTO &$config)
+    public function generate(HCServiceResource &$config)
     {
         $this->config = $config;
 

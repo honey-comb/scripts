@@ -29,8 +29,8 @@ declare(strict_types = 1);
 
 namespace HoneyComb\Scripts\Console;
 
-use HoneyComb\Scripts\DTO\HCInitialPackageDTO;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
+use HoneyComb\Scripts\Http\Resources\HCInitialPackageResource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
@@ -69,7 +69,7 @@ class HCMakePackage extends Command
     /**
      * Configuration for package creation
      *
-     * @var HCInitialPackageDTO
+     * @var HCInitialPackageResource
      */
     private $config;
 
@@ -94,7 +94,7 @@ class HCMakePackage extends Command
      */
     public function handle(): void
     {
-        $this->config = new HCInitialPackageDTO($this->getConfiguration());
+        $this->config = new HCInitialPackageResource($this->getConfiguration());
 
         $this->finalizeConfig();
         $this->createStructure();

@@ -21,85 +21,85 @@
  * SOFTWARE.
  *
  * Contact InteractiveSolutions:
- * E-mail: info@interactivesolutions.lt
+ * E-mail: hello@interactivesolutions.lt
  * http://www.interactivesolutions.lt
  */
 
-declare(strict_types = 1);
+namespace HoneyComb\Scripts\Http\Resources;
 
-namespace HoneyComb\Scripts\DTO;
-
-use HoneyComb\Starter\DTO\HCBaseDTO;
-
+use HoneyComb\Starter\Http\Resources\HCBaseResource;
 
 /**
- * Class HCInitialPackageDTO
- * @package HoneyComb\Scripts\DTO
+ * Class HCServiceActionsResource
+ * @package HoneyComb\Scripts\Http\Resources
  */
-class HCInitialPackageDTO extends HCBaseDTO
+class HCServiceActionsResource extends HCBaseResource
 {
     /**
      * @var array
      */
-    private $data;
+    private $admin;
 
     /**
-     * @var string
+     * @var array
      */
-    public $packagePath;
+    private $api;
 
     /**
-     * @var string
+     * @var array
      */
-    public $namespace;
+    private $front;
 
     /**
-     * @var string
-     */
-    public $namespaceComposer;
-
-    /**
-     * @var string
-     */
-    public $packageName;
-
-    /**
-     * HCPackageDTO constructor.
+     * HCServiceActionsResource constructor.
      * @param array $data
      */
     public function __construct(array $data)
     {
-        $this->data = $data;
+        if (isset($data['admin']))
+            $this->admin = $data['admin'];
+        else
+            $this->admin = [];
+
+        if (isset($data['api']))
+            $this->api = $data['api'];
+        else
+            $this->api = [];
+
+        if (isset($data['front']))
+            $this->front = $data['front'];
+        else
+            $this->front = [];
     }
 
     /**
      * @return array
      */
-    public function getData(): array
+    public function getFront(): array
     {
-        return $this->data;
+        return $this->front;
     }
 
     /**
      * @return array
      */
-    public function getFolderList(): array
+    public function getApi(): array
     {
-        return $this->data['folders'];
+        return $this->api;
     }
 
     /**
      * @return array
      */
-    public function getFilesList(): array
+    public function getAdmin(): array
     {
-        return $this->data['files'];
+        return $this->admin;
     }
 
     /**
      * @return array
      */
-    public function jsonData(): array
+    protected function jsonData(): array
     {
         return get_object_vars($this);
     }
