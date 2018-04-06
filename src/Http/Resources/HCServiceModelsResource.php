@@ -30,14 +30,14 @@ declare(strict_types = 1);
 namespace HoneyComb\Scripts\Http\Resources;
 
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
-use HoneyComb\Starter\Http\Resources\HCBaseResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Class HCServiceModelsResource
  * @package HoneyComb\Scripts\Http\Resources
  */
-class HCServiceModelsResource extends HCBaseResource
+class HCServiceModelsResource extends ResourceCollection
 {
     /**
      * @var HCScriptsHelper
@@ -73,6 +73,8 @@ class HCServiceModelsResource extends HCBaseResource
      */
     public function __construct(array $models, HCScriptsHelper $helper)
     {
+        parent::__construct($models, $helper);
+
         $this->helper = $helper;
         $autoModels = [];
 

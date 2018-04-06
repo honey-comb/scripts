@@ -27,13 +27,13 @@
 
 namespace HoneyComb\Scripts\Http\Resources;
 
-use HoneyComb\Starter\Http\Resources\HCBaseResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 /**
  * Class HCPackageResource
  * @package HoneyComb\Scripts\Http\Resources
  */
-class HCPackageResource extends HCBaseResource
+class HCPackageResource extends ResourceCollection
 {
     /**
      * Official package name
@@ -91,6 +91,8 @@ class HCPackageResource extends HCBaseResource
      */
     public function __construct(array $data)
     {
+        parent::__construct($data);
+
         $this->data = $data;
 
         $this->packageName = $data['general']['packageName'];

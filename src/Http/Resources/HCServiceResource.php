@@ -31,13 +31,13 @@ use HoneyComb\Scripts\Http\Resources\HCPackageResource;
 use HoneyComb\Scripts\Http\Resources\HCServiceActionsResource;
 use HoneyComb\Scripts\Console\HCMakePackage;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
-use HoneyComb\Starter\Http\Resources\HCBaseResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 /**
  * Class HCServiceResource
  * @package HoneyComb\Scripts\Http\Resources
  */
-class HCServiceResource extends HCBaseResource
+class HCServiceResource extends ResourceCollection
 {
     /**
      * Scripts helper
@@ -138,6 +138,8 @@ class HCServiceResource extends HCBaseResource
      */
     public function __construct(array $data, $helper)
     {
+        parent::__construct($data, $helper);
+
         $this->helper = $helper;
 
         $this->directory = $data['directory'];

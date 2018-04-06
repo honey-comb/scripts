@@ -27,13 +27,13 @@
 
 namespace HoneyComb\Scripts\Http\Resources;
 
-use HoneyComb\Starter\Http\Resources\HCBaseResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 /**
  * Class HCInitialProjectResource
  * @package HoneyComb\Scripts\Http\Resources
  */
-class HCInitialProjectResource extends HCBaseResource
+class HCInitialProjectResource extends ResourceCollection
 {
     private $packageName = "";
 
@@ -45,6 +45,8 @@ class HCInitialProjectResource extends HCBaseResource
 
     public function __construct(array $data)
     {
+        parent::__construct($data);
+
         $this->data = $data;
     }
 

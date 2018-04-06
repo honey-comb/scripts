@@ -29,13 +29,13 @@ declare(strict_types = 1);
 namespace HoneyComb\Scripts\Http\Resources;
 
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
-use HoneyComb\Starter\Http\Resources\HCBaseResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 /**
  * Class HCTranslationsResource
  * @package HoneyComb\Scripts\Http\Resources
  */
-class HCTranslationsResource extends HCBaseResource
+class HCTranslationsResource extends ResourceCollection
 {
 
     /**
@@ -82,6 +82,7 @@ class HCTranslationsResource extends HCBaseResource
      */
     public function __construct(HCServiceModelsResource $models, HCScriptsHelper $helper)
     {
+        parent::__construct($models, $helper);
         $this->helper = $helper;
         $this->models = $models;
     }

@@ -27,13 +27,13 @@
 
 namespace HoneyComb\Scripts\Http\Resources;
 
-use HoneyComb\Starter\Http\Resources\HCBaseResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 /**
  * Class HCServiceActionsResource
  * @package HoneyComb\Scripts\Http\Resources
  */
-class HCServiceActionsResource extends HCBaseResource
+class HCServiceActionsResource extends ResourceCollection
 {
     /**
      * @var array
@@ -56,6 +56,8 @@ class HCServiceActionsResource extends HCBaseResource
      */
     public function __construct(array $data)
     {
+        parent::__construct($data);
+
         if (isset($data['admin']))
             $this->admin = $data['admin'];
         else

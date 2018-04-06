@@ -29,14 +29,14 @@ declare(strict_types = 1);
 
 namespace HoneyComb\Scripts\Http\Resources;
 
-use HoneyComb\Starter\Http\Resources\HCBaseResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 
 /**
  * Class HCInitialPackageResource
  * @package HoneyComb\Scripts\Http\Resources
  */
-class HCInitialPackageResource extends HCBaseResource
+class HCInitialPackageResource extends ResourceCollection
 {
     /**
      * @var array
@@ -69,6 +69,8 @@ class HCInitialPackageResource extends HCBaseResource
      */
     public function __construct(array $data)
     {
+        parent::__construct($data);
+        
         $this->data = $data;
     }
 
