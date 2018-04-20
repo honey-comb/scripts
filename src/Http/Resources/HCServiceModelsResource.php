@@ -31,6 +31,7 @@ namespace HoneyComb\Scripts\Http\Resources;
 
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -71,9 +72,9 @@ class HCServiceModelsResource extends ResourceCollection
      * @param HCScriptsHelper $helper
      * @throws \Exception
      */
-    public function __construct(array $models, HCScriptsHelper $helper)
+    public function __construct(Collection $models, HCScriptsHelper $helper)
     {
-        parent::__construct($models, $helper);
+        parent::__construct($models);
 
         $this->helper = $helper;
         $autoModels = [];
@@ -84,7 +85,7 @@ class HCServiceModelsResource extends ResourceCollection
             }
         }
 
-        $models = array_merge($models, $autoModels);
+        $models = array_merge($models->toArray(), $autoModels);
 
         foreach ($models as $model) {
 

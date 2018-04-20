@@ -28,6 +28,7 @@
 namespace HoneyComb\Scripts\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Collection;
 
 /**
  * Class HCPackageResource
@@ -87,9 +88,9 @@ class HCPackageResource extends ResourceCollection
 
     /**
      * HCPackageResource constructor.
-     * @param array $data
+     * @param Collection $data
      */
-    public function __construct(array $data)
+    public function __construct(Collection $data)
     {
         parent::__construct($data);
 

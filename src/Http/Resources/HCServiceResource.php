@@ -27,11 +27,10 @@
 
 namespace HoneyComb\Scripts\Http\Resources;
 
-use HoneyComb\Scripts\Http\Resources\HCPackageResource;
-use HoneyComb\Scripts\Http\Resources\HCServiceActionsResource;
 use HoneyComb\Scripts\Console\HCMakePackage;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Collection;
 
 /**
  * Class HCServiceResource
@@ -132,11 +131,11 @@ class HCServiceResource extends ResourceCollection
 
     /**
      * HCServiceResource constructor.
-     * @param array $data
+     * @param Collection $data
      * @param $helper
      * @throws \Exception
      */
-    public function __construct(array $data, $helper)
+    public function __construct(Collection $data, $helper)
     {
         parent::__construct($data, $helper);
 
@@ -159,13 +158,14 @@ class HCServiceResource extends ResourceCollection
             $this->editForm = true;
         }
 
-        $this->packageConfig = new HCPackageResource(json_decode(file_get_contents($this->getDirectory() . 'hc-config.json'),
-            true));
+        $config = collect(json_decode(file_get_contents($this->getDirectory() . 'hc-config.json'), true));
+
+        $this->packageConfig = new HCPackageResource($config);
 
         $this->packageConfig->setServiceName($this->serviceName);
 
-        $this->actions = new HCServiceActionsResource($data['actions']);
-        $this->modelConfig = new HCServiceModelsResource($data['models'], $this->helper);
+        $this->actions = new HCServiceActionsResource(collect($data['actions']));
+        $this->modelConfig = new HCServiceModelsResource(collect($data['models']), $this->helper);
 
         $this->translation = new HCTranslationsResource($this->modelConfig, $this->helper);
         $this->translation->setRootDirectory($this->packageConfig->getPackageName(), $this->getDirectory());
@@ -342,8 +342,9 @@ class HCServiceResource extends ResourceCollection
     {
         $config = $this->helper->getHCConfig($this->getDirectory());
 
-        if (!in_array($route, $config['routes']))
+        if (!in_array($route, $config['routes'])) {
             $config['routes'][] = $route;
+        }
 
         $this->helper->setHCConfig($this->getDirectory(), $config);
     }
@@ -357,8 +358,9 @@ class HCServiceResource extends ResourceCollection
     {
         $config = $this->helper->getHCConfig($this->getDirectory());
 
-        if (!isset($config['formData'][$name]))
+        if (!isset($config['formData'][$name])) {
             $config['formData'][$name] = $namespace;
+        }
 
         $this->helper->setHCConfig($this->getDirectory(), $config);
     }
@@ -392,5 +394,17 @@ class HCServiceResource extends ResourceCollection
     protected function jsonData(): array
     {
         return get_object_vars($this);
+    }
+
+    /**
+     * Transform the resource into a JSON array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function toArray($request)
+    {
+        return $this->collection->toArray();
+//        return $this->collection->map->toArray($request)->all();
     }
 }

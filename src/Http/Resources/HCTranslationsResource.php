@@ -30,6 +30,7 @@ namespace HoneyComb\Scripts\Http\Resources;
 
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Collection;
 
 /**
  * Class HCTranslationsResource
@@ -82,7 +83,8 @@ class HCTranslationsResource extends ResourceCollection
      */
     public function __construct(HCServiceModelsResource $models, HCScriptsHelper $helper)
     {
-        parent::__construct($models, $helper);
+        parent::__construct($models);
+
         $this->helper = $helper;
         $this->models = $models;
     }

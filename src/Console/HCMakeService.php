@@ -118,6 +118,8 @@ class HCMakeService extends Command
                 if ($config == null) {
                     $this->helper->abort($file->getFilename() . ' has Invalid JSON format.');
                 }
+                
+                $config = collect($config);
 
                 $this->config = new HCServiceResource($config, $this->helper);
 

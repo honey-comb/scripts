@@ -28,6 +28,7 @@
 namespace HoneyComb\Scripts\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Collection;
 
 /**
  * Class HCServiceActionsResource
@@ -54,7 +55,7 @@ class HCServiceActionsResource extends ResourceCollection
      * HCServiceActionsResource constructor.
      * @param array $data
      */
-    public function __construct(array $data)
+    public function __construct(Collection $data)
     {
         parent::__construct($data);
 
