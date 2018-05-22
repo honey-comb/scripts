@@ -32,6 +32,7 @@ namespace HoneyComb\Scripts\Console;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 use HoneyComb\Scripts\Http\Resources\HCInitialPackageResource;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -94,7 +95,8 @@ class HCMakePackage extends Command
      */
     public function handle(): void
     {
-        $this->config = new HCInitialPackageResource($this->getConfiguration());
+        $this->config = new HCInitialPackageResource(new Collection([]));
+        $this->config->setData($this->getConfiguration());
 
         $this->finalizeConfig();
         $this->createStructure();

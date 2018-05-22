@@ -64,13 +64,10 @@ class HCInitialPackageResource extends ResourceCollection
     public $packageName;
 
     /**
-     * HCInitialPackageResource constructor.
      * @param array $data
      */
-    public function __construct(array $data)
+    public function setData(array $data)
     {
-        parent::__construct($data);
-        
         $this->data = $data;
     }
 
