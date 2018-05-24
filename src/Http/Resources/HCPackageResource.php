@@ -89,8 +89,10 @@ class HCPackageResource extends ResourceCollection
      * HCPackageResource constructor.
      * @param array $data
      */
-    public function setData(array $data)
+    public function __construct(array $data)
     {
+        parent::__construct($data);
+
         $this->data = $data;
 
         $this->packageName = $data['general']['packageName'];

@@ -54,8 +54,10 @@ class HCServiceActionsResource extends ResourceCollection
      * HCServiceActionsResource constructor.
      * @param array $data
      */
-    public function setData(array $data)
+    public function __construct(array $data)
     {
+        parent::__construct($data);
+
         if (isset($data['admin']))
             $this->admin = $data['admin'];
         else
