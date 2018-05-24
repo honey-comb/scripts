@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace {repositoryNs};
 
 use {namespace}\{model};
+use {namespace}\{model}Request;
 use HoneyComb\Core\Repositories\Traits\HCQueryBuilderTrait;
 use HoneyComb\Starter\Repositories\HCBaseRepository;
 
@@ -18,6 +19,20 @@ class {repository} extends HCBaseRepository
     public function model(): string
     {
         return {model}::class;
+    }
+
+    /**
+     * @param {model}Request $request
+     * @return \Illuminate\Support\Collection|static
+     */
+    public function getOptions({model}Request $request)
+    {
+        return $this->createBuilderQuery($request)->get()->map(function ($record) {
+            return [
+                'id' => $record->id,
+                'name' => $record->name
+            ];
+        });
     }
 
     {softDelete}
