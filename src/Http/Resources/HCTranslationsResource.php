@@ -80,9 +80,8 @@ class HCTranslationsResource extends ResourceCollection
      * @param HCServiceModelsResource $models
      * @param HCScriptsHelper $helper
      */
-    public function __construct(HCServiceModelsResource $models, HCScriptsHelper $helper)
+    public function setData(HCServiceModelsResource $models, HCScriptsHelper $helper)
     {
-        parent::__construct($models, $helper);
         $this->helper = $helper;
         $this->models = $models;
     }
@@ -137,14 +136,16 @@ class HCTranslationsResource extends ResourceCollection
      */
     public function setRootDirectory(string $packageName, string $directory)
     {
-        if ($directory == 'app/')
+        if ($directory == 'app/') {
             $directory = "";
+        }
 
         $this->rootDirectory = $directory . 'resources/lang/';
         $this->translationLocation = $directory == "" ? "" : $packageName . '::';
 
-        if ($this->translationLocation == "")
+        if ($this->translationLocation == "") {
             $this->translationPrefix = "";
+        }
     }
 
     /**
