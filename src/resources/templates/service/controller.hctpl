@@ -100,6 +100,18 @@ class {serviceName}Controller extends HCBaseController
        );
    }
 
+   /**
+   * Create data list
+   * @param {serviceName}Request $request
+   * @return JsonResponse
+   */
+      public function getOptions({serviceName}Request $request): JsonResponse
+      {
+          return response()->json(
+              $this->service->getRepository()->getOptions($request)
+          );
+      }
+
    {create}
 
    {update}
