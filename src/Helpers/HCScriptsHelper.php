@@ -123,7 +123,7 @@ class HCScriptsHelper
 
         $directory = array_filter(explode('/', $destination));
         array_pop($directory);
-        $directory = implode('/', $directory);
+        $directory = '/' . implode('/', $directory);
 
         $this->createDirectory($directory);
         file_put_contents($destination, $template);

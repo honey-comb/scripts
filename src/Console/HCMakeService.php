@@ -38,6 +38,7 @@ use HoneyComb\Scripts\Http\Controllers\HCScriptsRoutesController;
 use HoneyComb\Scripts\Http\Controllers\HCScriptsServiceController;
 use HoneyComb\Scripts\Http\Resources\HCServiceResource;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -103,6 +104,7 @@ class HCMakeService extends Command
 
     /**
      * Loading configuration file, first available in configDirectory
+     * @throws \Exception
      */
     private function loadConfiguration()
     {
@@ -119,7 +121,8 @@ class HCMakeService extends Command
                     $this->helper->abort($file->getFilename() . ' has Invalid JSON format.');
                 }
 
-                $this->config = new HCServiceResource($config, $this->helper);
+                $this->config = new HCServiceResource(new Collection());
+                $this->config->setData($config, $this->helper);
 
                 break;
             }

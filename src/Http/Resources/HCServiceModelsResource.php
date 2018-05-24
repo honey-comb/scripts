@@ -71,10 +71,8 @@ class HCServiceModelsResource extends ResourceCollection
      * @param HCScriptsHelper $helper
      * @throws \Exception
      */
-    public function __construct(array $models, HCScriptsHelper $helper)
+    public function setData(array $models, HCScriptsHelper $helper)
     {
-        parent::__construct($models, $helper);
-
         $this->helper = $helper;
         $autoModels = [];
 

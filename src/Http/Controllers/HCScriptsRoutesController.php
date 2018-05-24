@@ -3,7 +3,7 @@
  * @copyright 2018 interactivesolutions
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
+ * of this software and associated documentation files (the 'Software'), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
@@ -12,7 +12,7 @@
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -90,22 +90,25 @@ class HCScriptsRoutesController extends Controller
 
         $urlActions = $this->getUrlActions($this->config->getActions()->getAdmin(), 'admin');
 
-        if ($idActions == "" && $urlActions == "") {
-            $actionList = "";
+        if ($idActions == '' && $urlActions == '') {
+            $actionList = '';
         } else {
-            $actionList = $this->helper->createFileFromTemplate("", "service/routes/actions.url.hctpl",
+            $actionList = $this->helper->createFileFromTemplate('', 'service/routes/actions.url.hctpl',
                 [
-                    "idActions" => $idActions,
-                    "urlActions" => $urlActions,
+                    'idActions' => $idActions,
+                    'urlActions' => $urlActions,
                 ], false);
         }
 
         $this->helper->createFileFromTemplate($this->getFullRoutePath($this->getRoutePath('Admin')),
             'service/routes/route.admin.hctpl',
             [
-                "index" => $this->getIndex($this->config->getActions()->getAdmin(), 'admin'),
-                "actions" => $actionList,
-                "url" => $this->config->getUrl(),
+                'index' => $this->getIndex($this->config->getActions()->getAdmin(), 'admin'),
+                'actions' => $actionList,
+                'url' => $this->config->getUrl(),
+                'routeName' => $this->config->getRouteName(),
+                'aclPrefix' => $this->config->getAclPrefix(),
+                'serviceName' => $this->config->getServiceName()
             ]);
     }
 
@@ -143,13 +146,13 @@ class HCScriptsRoutesController extends Controller
      */
     private function getIndex(array $actions): string
     {
-        $php = "";
+        $php = '';
 
-        if (in_array("list", $actions)) {
-            $php .= $this->helper->createFileFromTemplate("", "service/routes/action.index.hctpl",
+        if (in_array('list', $actions)) {
+            $php .= $this->helper->createFileFromTemplate('', 'service/routes/action.index.hctpl',
                 $this->config->jsonSerialize(), false);
 
-            $this->permissions[] = $this->config->getAclPrefix() . "_list";
+            $this->permissions[] = $this->config->getAclPrefix() . '_list';
         }
 
         return $php;
@@ -163,25 +166,25 @@ class HCScriptsRoutesController extends Controller
      */
     private function getIdsActions(array $actions): string
     {
-        $php = "";
+        $php = '';
 
-        if (in_array("list", $actions)) {
-            $php .= $this->helper->createFileFromTemplate("", "service/routes/action.single.hctpl",
+        if (in_array('list', $actions)) {
+            $php .= $this->helper->createFileFromTemplate('', 'service/routes/action.single.hctpl',
                 $this->config->jsonSerialize(), false);
         }
 
-        if (in_array("update", $actions)) {
-            $php .= $this->helper->createFileFromTemplate("", "service/routes/action.update.hctpl",
+        if (in_array('update', $actions)) {
+            $php .= $this->helper->createFileFromTemplate('', 'service/routes/action.update.hctpl',
                 $this->config->jsonSerialize(), false);
-            $php .= $this->helper->createFileFromTemplate("", "service/routes/action.patch.hctpl",
+            $php .= $this->helper->createFileFromTemplate('', 'service/routes/action.patch.hctpl',
                 $this->config->jsonSerialize(), false);
 
-            $this->permissions[] = $this->config->getAclPrefix() . "_update";
+            $this->permissions[] = $this->config->getAclPrefix() . '_update';
         }
 
-        if ($php != "") {
-            $php = $this->helper->createFileFromTemplate("", "service/routes/actions.id.hctpl",
-                ["actions" => $php], false);
+        if ($php != '') {
+            $php = $this->helper->createFileFromTemplate('', 'service/routes/actions.id.hctpl',
+                ['actions' => $php], false);
         }
 
         return $php;
@@ -195,54 +198,54 @@ class HCScriptsRoutesController extends Controller
      */
     private function getUrlActions(array $actions): string
     {
-        $php = "";
+        $php = '';
 
-        if (in_array("list", $actions)) {
-            $php .= $this->helper->createFileFromTemplate("", "service/routes/action.list.hctpl",
+        if (in_array('list', $actions)) {
+            $php .= $this->helper->createFileFromTemplate('', 'service/routes/action.list.hctpl',
                 $this->config->jsonSerialize(), false);
         }
 
-        if (in_array("create", $actions)) {
-            $php .= $this->helper->createFileFromTemplate("", "service/routes/action.create.hctpl",
+        if (in_array('create', $actions)) {
+            $php .= $this->helper->createFileFromTemplate('', 'service/routes/action.create.hctpl',
                 $this->config->jsonSerialize(), false);
 
-            $this->permissions[] = $this->config->getAclPrefix() . "_create";
+            $this->permissions[] = $this->config->getAclPrefix() . '_create';
         }
 
-        if (in_array("delete", $actions)) {
-            $php .= $this->helper->createFileFromTemplate("", "service/routes/action.delete.hctpl",
+        if (in_array('delete', $actions)) {
+            $php .= $this->helper->createFileFromTemplate('', 'service/routes/action.delete.hctpl',
                 $this->config->jsonSerialize(), false);
 
-            $this->permissions[] = $this->config->getAclPrefix() . "_delete";
+            $this->permissions[] = $this->config->getAclPrefix() . '_delete';
         }
 
-        if (in_array("delete_force", $actions)) {
-            $php .= $this->helper->createFileFromTemplate("",
-                "service/routes/action.delete.force.hctpl",
+        if (in_array('delete_force', $actions)) {
+            $php .= $this->helper->createFileFromTemplate('',
+                'service/routes/action.delete.force.hctpl',
                 $this->config->jsonSerialize(), false);
 
-            $this->permissions[] = $this->config->getAclPrefix() . "_delete_force";
+            $this->permissions[] = $this->config->getAclPrefix() . '_delete_force';
         }
 
-        if (in_array("merge", $actions)) {
-            $php .= $this->helper->createFileFromTemplate("", "service/routes/action.merge.hctpl",
+        if (in_array('merge', $actions)) {
+            $php .= $this->helper->createFileFromTemplate('', 'service/routes/action.merge.hctpl',
                 $this->config->jsonSerialize(), false);
 
-            $this->permissions[] = $this->config->getAclPrefix() . "_merge";
+            $this->permissions[] = $this->config->getAclPrefix() . '_merge';
         }
 
-        if (in_array("clone", $actions)) {
-            $php .= $this->helper->createFileFromTemplate("", "service/routes/action.clone.hctpl",
+        if (in_array('clone', $actions)) {
+            $php .= $this->helper->createFileFromTemplate('', 'service/routes/action.clone.hctpl',
                 $this->config->jsonSerialize(), false);
 
-            $this->permissions[] = $this->config->getAclPrefix() . "_clone";
+            $this->permissions[] = $this->config->getAclPrefix() . '_clone';
         }
 
-        if (in_array("restore", $actions)) {
-            $php .= $this->helper->createFileFromTemplate("", "service/routes/action.restore.hctpl",
+        if (in_array('restore', $actions)) {
+            $php .= $this->helper->createFileFromTemplate('', 'service/routes/action.restore.hctpl',
                 $this->config->jsonSerialize(), false);
 
-            $this->permissions[] = $this->config->getAclPrefix() . "_restore";
+            $this->permissions[] = $this->config->getAclPrefix() . '_restore';
         }
 
         return $php;
@@ -257,9 +260,9 @@ class HCScriptsRoutesController extends Controller
 
         $permission = [
 
-            "name" => "acl." . $this->config->getRouteName(),
-            "controller" => $packageConfig->getNamespaceForAdminController(true),
-            "actions" => $this->permissions,
+            'name' => 'acl.' . $this->config->getRouteName(),
+            'controller' => $packageConfig->getNamespaceForAdminController(true),
+            'actions' => $this->permissions,
         ];
 
         $this->config->updatePackagePermissions($permission);

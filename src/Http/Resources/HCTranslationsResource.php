@@ -80,9 +80,8 @@ class HCTranslationsResource extends ResourceCollection
      * @param HCServiceModelsResource $models
      * @param HCScriptsHelper $helper
      */
-    public function __construct(HCServiceModelsResource $models, HCScriptsHelper $helper)
+    public function setData(HCServiceModelsResource $models, HCScriptsHelper $helper)
     {
-        parent::__construct($models, $helper);
         $this->helper = $helper;
         $this->models = $models;
     }

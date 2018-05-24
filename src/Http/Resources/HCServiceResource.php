@@ -32,6 +32,7 @@ use HoneyComb\Scripts\Http\Resources\HCServiceActionsResource;
 use HoneyComb\Scripts\Console\HCMakePackage;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Collection;
 
 /**
  * Class HCServiceResource
@@ -131,15 +132,12 @@ class HCServiceResource extends ResourceCollection
 
 
     /**
-     * HCServiceResource constructor.
      * @param array $data
      * @param $helper
      * @throws \Exception
      */
-    public function __construct(array $data, $helper)
+    public function setData(array $data, $helper)
     {
-        parent::__construct($data, $helper);
-
         $this->helper = $helper;
 
         $this->directory = $data['directory'];
@@ -159,31 +157,22 @@ class HCServiceResource extends ResourceCollection
             $this->editForm = true;
         }
 
-        $this->packageConfig = new HCPackageResource(json_decode(file_get_contents($this->getDirectory() . 'hc-config.json'),
-            true));
+        $this->packageConfig = new HCPackageResource(new Collection());
+        $this->packageConfig->setData(json_decode(file_get_contents($this->getDirectory() . 'hc-config.json'), true));
 
         $this->packageConfig->setServiceName($this->serviceName);
 
-        $this->actions = new HCServiceActionsResource($data['actions']);
-        $this->modelConfig = new HCServiceModelsResource($data['models'], $this->helper);
+        $this->actions = new HCServiceActionsResource(new Collection());
+        $this->actions->setData($data['actions']);
 
-        $this->translation = new HCTranslationsResource($this->modelConfig, $this->helper);
+        $this->modelConfig = new HCServiceModelsResource(new Collection());
+        $this->modelConfig->setData($data['models'], $this->helper);
+
+        $this->translation = new HCTranslationsResource(new Collection());
+        $this->translation->setData($this->modelConfig, $this->helper);
+
         $this->translation->setRootDirectory($this->packageConfig->getPackageName(), $this->getDirectory());
         $this->translation->setTranslationPrefix($this->getUrl());
-
-        /*dd($this->isEditForm(), $this->isNewForm());
-
-        return;
-
-        $this->models = $data['database'];
-
-        foreach ($this->models as &$value) {
-            $value['fields'] = $this->getTableColumns($value['tableName']);
-        }
-
-        $this->routesAdmin = $data['services']['admin'];
-        $this->routesApi = $data['services']['api'];
-        $this->routesFront = $data['services']['front'];*/
     }
 
     /**
@@ -200,7 +189,7 @@ class HCServiceResource extends ResourceCollection
     public function getDirectory()
     {
         if ($this->package) {
-            return HCMakePackage::ROOT_DIRECTORY . DIRECTORY_SEPARATOR . $this->directory . '/src/';
+            return app_path('../') . HCMakePackage::ROOT_DIRECTORY . DIRECTORY_SEPARATOR . $this->directory . '/src/';
         }
 
         return 'app/';
@@ -342,8 +331,9 @@ class HCServiceResource extends ResourceCollection
     {
         $config = $this->helper->getHCConfig($this->getDirectory());
 
-        if (!in_array($route, $config['routes']))
+        if (!in_array($route, $config['routes'])) {
             $config['routes'][] = $route;
+        }
 
         $this->helper->setHCConfig($this->getDirectory(), $config);
     }
@@ -357,8 +347,9 @@ class HCServiceResource extends ResourceCollection
     {
         $config = $this->helper->getHCConfig($this->getDirectory());
 
-        if (!isset($config['formData'][$name]))
+        if (!isset($config['formData'][$name])) {
             $config['formData'][$name] = $namespace;
+        }
 
         $this->helper->setHCConfig($this->getDirectory(), $config);
     }
