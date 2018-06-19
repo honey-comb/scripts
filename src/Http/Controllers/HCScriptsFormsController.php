@@ -28,7 +28,6 @@ declare(strict_types = 1);
 
 namespace HoneyComb\Scripts\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 use HoneyComb\Scripts\Http\Resources\HCServiceResource;
 
@@ -36,7 +35,7 @@ use HoneyComb\Scripts\Http\Resources\HCServiceResource;
  * Class HCScriptsFormsController
  * @package HoneyComb\Scripts\Http\Controllers
  */
-class HCScriptsFormsController extends Controller
+class HCScriptsFormsController
 {
     /**
      * @var HCServiceResource
@@ -141,6 +140,6 @@ class HCScriptsFormsController extends Controller
      */
     private function getFormDestination()
     {
-        return $this->config->getDirectory() . 'Forms/' . $this->config->getServiceName() . 'Form.php';
+        return $this->config->getDirectory() . 'Forms/Admin/' . $this->config->getServiceName() . 'Form.php';
     }
 }

@@ -27,11 +27,10 @@
 
 namespace HoneyComb\Scripts\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 use HoneyComb\Scripts\Http\Resources\HCServiceResource;
 
-class HCScriptsRequestController extends Controller
+class HCScriptsRequestController
 {
     /**
      * @var HCScriptsHelper
@@ -65,6 +64,6 @@ class HCScriptsRequestController extends Controller
             'serviceName' => $this->config->getServiceName(),
         ];
 
-        $this->helper->createFileFromTemplate($this->config->getDirectory() . '/Http/Requests/' . $this->config->getServiceName() . 'Request.php','service/request.hctpl', $data);
+        $this->helper->createFileFromTemplate($this->config->getDirectory() . '/Http/Requests/Admin/' . $this->config->getServiceName() . 'Request.php','service/request.hctpl', $data);
     }
 }

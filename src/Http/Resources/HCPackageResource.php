@@ -197,7 +197,7 @@ class HCPackageResource extends ResourceCollection
      */
     public function getNamespaceForForm(bool $full = false): string
     {
-        $ns = $this->namespace . 'Forms';
+        $ns = $this->namespace . 'Forms\\Admin';
 
         if ($full)
             $ns .= '\\' . $this->serviceName . 'Form';
@@ -211,7 +211,7 @@ class HCPackageResource extends ResourceCollection
      */
     public function getNamespaceForRepository(bool $full = false): string
     {
-        $ns = $this->namespace . 'Repositories';
+        $ns = $this->namespace . 'Repositories\\Admin';
 
         if ($full)
             $ns .= '\\' . $this->serviceName . 'Repository';
@@ -225,7 +225,7 @@ class HCPackageResource extends ResourceCollection
      */
     public function getNamespaceForService(bool $full = false): string
     {
-        $ns = $this->namespace . 'Services';
+        $ns = $this->namespace . 'Services\\Admin';
 
         if ($full)
             $ns .= '\\' . $this->serviceName . 'Service';
@@ -239,7 +239,7 @@ class HCPackageResource extends ResourceCollection
      */
     public function getNameSpaceForRequest(bool $full = false): string
     {
-        $ns = $this->namespace . 'Http\\Requests';
+        $ns = $this->namespace . 'Http\\Requests\\Admin';
 
         if ($full)
             $ns .= '\\' . $this->serviceName . 'Request';

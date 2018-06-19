@@ -29,7 +29,6 @@ declare(strict_types = 1);
 
 namespace HoneyComb\Scripts\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 use HoneyComb\Scripts\Http\Resources\HCServiceResource;
 
@@ -37,7 +36,7 @@ use HoneyComb\Scripts\Http\Resources\HCServiceResource;
  * Class HCScriptsRoutesController
  * @package HoneyComb\Scripts\Http\Controllers
  */
-class HCScriptsRoutesController extends Controller
+class HCScriptsRoutesController
 {
     /**
      * @var HCServiceResource

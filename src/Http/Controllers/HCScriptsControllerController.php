@@ -27,11 +27,10 @@
 
 namespace HoneyComb\Scripts\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 use HoneyComb\Scripts\Http\Resources\HCServiceResource;
 
-class HCScriptsControllerController extends Controller
+class HCScriptsControllerController
 {
     /**
      * @var HCScriptsHelper

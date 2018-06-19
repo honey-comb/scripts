@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace {repositoryNs};
 
 use {namespace}\{model};
-use {namespace}\{model}Request;
+use {requestNs}\{model}Request;
 use HoneyComb\Core\Repositories\Traits\HCQueryBuilderTrait;
 use HoneyComb\Starter\Repositories\HCBaseRepository;
 
@@ -30,7 +30,7 @@ class {repository} extends HCBaseRepository
         return $this->createBuilderQuery($request)->get()->map(function ($record) {
             return [
                 'id' => $record->id,
-                'name' => $record->label
+                'label' => $record->label
             ];
         });
     }

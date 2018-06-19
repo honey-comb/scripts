@@ -29,7 +29,6 @@ declare(strict_types = 1);
 
 namespace HoneyComb\Scripts\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use HoneyComb\Scripts\Helpers\HCScriptsHelper;
 use HoneyComb\Scripts\Http\Resources\HCServiceResource;
 
@@ -37,7 +36,7 @@ use HoneyComb\Scripts\Http\Resources\HCServiceResource;
  * Class HCScriptsServiceController
  * @package HoneyComb\Scripts\Http\Controllers
  */
-class HCScriptsServiceController extends Controller
+class HCScriptsServiceController
 {
     /**
      * @var HCServiceResource
@@ -76,10 +75,10 @@ class HCScriptsServiceController extends Controller
         $data = [
             'serviceName' => $this->config->getServiceName(),
             'namespace' => $this->config->getPackageConfig()->getNamespaceForService(),
-            'namespaceClean' => $this->config->getPackageConfig()->getNamespace(),
+            'repositoryNs' => $this->config->getPackageConfig()->getNamespaceForRepository(),
         ];
 
-        $destination = $this->config->getDirectory() . 'Services/' . $data['serviceName'] . 'Service' . '.php';
+        $destination = $this->config->getDirectory() . 'Services/Admin/' . $data['serviceName'] . 'Service' . '.php';
 
         $this->helper->createFileFromTemplate($destination, 'service/service.hctpl', $data);
     }

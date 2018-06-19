@@ -165,11 +165,12 @@ class HCScriptsModelsController
     {
         $data['repository'] = $data['model'] . 'Repository';
         $data['repositoryNs'] = $this->config->getPackageConfig()->getNamespaceForRepository();
+        $data['requestNs'] = $this->config->getPackageConfig()->getNameSpaceForRequest();
         $data['softDelete'] = $this->getActionSoftDelete($data);
         $data['restore'] = $this->getActionRestore($data);
         $data['deleteForce'] = $this->getActionForceDelete($data);
 
-        $destination = $this->config->getDirectory() . 'Repositories/' . $data['repository'] . '.php';
+        $destination = $this->config->getDirectory() . 'Repositories/Admin/' . $data['repository'] . '.php';
         $this->helper->createFileFromTemplate($destination, 'service/repository.hctpl', $data);
     }
 
