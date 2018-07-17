@@ -85,8 +85,6 @@ class HCMakePackage extends Command
     {
         parent::__construct();
         $this->helper = $helper;
-
-        $this->helper->createDirectory(self::ROOT_DIRECTORY);
     }
 
     /**
@@ -95,6 +93,9 @@ class HCMakePackage extends Command
      */
     public function handle(): void
     {
+        $this->helper->createDirectory(self::ROOT_DIRECTORY);
+
+
         $this->config = new HCInitialPackageResource(new Collection([]));
         $this->config->setData($this->getConfiguration());
 

@@ -29,9 +29,6 @@ declare(strict_types = 1);
 
 namespace HoneyComb\Scripts\Providers;
 
-use HoneyComb\Scripts\Console\HCMakePackage;
-use HoneyComb\Scripts\Console\HCMakeService;
-use HoneyComb\Scripts\Console\HCPrepareProject;
 use HoneyComb\Starter\Providers\HCBaseServiceProvider;
 
 /**
@@ -50,9 +47,6 @@ class HCScriptsServiceProvider extends HCBaseServiceProvider
      * @var array
      */
     protected $commands = [
-        HCMakePackage::class,
-        HCMakeService::class,
-        HCPrepareProject::class,
     ];
 
     /**
