@@ -1,9 +1,5 @@
 Route::get('/', '{serviceName}Controller@getListPaginate')
                 ->name('admin.api.{routeName}')
-
-Route::get('list', '{serviceName}Controller@getList')
-                    ->name('admin.api.{routeName}.list')
-                    ->middleware('acl:{aclPrefix}_admin_list');
                 ->middleware('acl:{aclPrefix}_list');
 
 Route::get('options', '{serviceName}Controller@getOptions')
