@@ -1,4 +1,4 @@
 Route::patch('/', '{serviceName}Controller@patch')
     ->name('admin.api.{routeName}.patch')
-    ->middleware('acl:{aclPrefix}_admin_update');
+    ->middleware('acl:{aclPrefix}_update');
 
