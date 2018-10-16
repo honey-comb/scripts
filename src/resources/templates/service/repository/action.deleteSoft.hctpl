@@ -3,6 +3,7 @@
  *
  * @param $ids
  * @return void
+ * @throws \Exception
  */
 public function deleteSoft(array $ids): void
 {
