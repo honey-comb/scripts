@@ -184,7 +184,7 @@ class HCServiceModelsResource extends ResourceCollection
         return [
             'tableName' => $model['tableName'] . '_translation',
             'modelName' => $model['modelName'] . 'Translation',
-            'use' => ['base'],
+            'use' => ['translation'],
         ];
     }
 }

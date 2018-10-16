@@ -89,6 +89,7 @@ class HCMakeService extends Command
     public function __construct(HCScriptsHelper $helper)
     {
         parent::__construct();
+
         $this->helper = $helper;
     }
 
@@ -98,8 +99,12 @@ class HCMakeService extends Command
      */
     public function handle(): void
     {
-        $this->loadConfiguration();
+        $filePath = $this->loadConfiguration();
         $this->createService();
+
+        if ($filePath) {
+            rename($filePath, $filePath . '.done');
+        }
     }
 
     /**
@@ -114,17 +119,16 @@ class HCMakeService extends Command
             $filePath = (string)$file;
 
             if (strpos($filePath, '.done') === false) {
-
                 $config = json_decode(file_get_contents($filePath), true);
 
-                if ($config == null) {
+                if (is_null($config)) {
                     $this->helper->abort($file->getFilename() . ' has Invalid JSON format.');
                 }
 
                 $this->config = new HCServiceResource(new Collection());
                 $this->config->setData($config, $this->helper);
 
-                break;
+                return $filePath;
             }
         }
     }
@@ -132,8 +136,14 @@ class HCMakeService extends Command
     /**
      * @throws \Exception
      */
-    private function createService()
+    private function createService(): void
     {
+        if (is_null($this->config)) {
+            info('No config data');
+
+            return;
+        }
+
         (new HCScriptsRoutesController($this->helper))->generate($this->config);
         (new HCScriptsModelsController($this->helper))->generate($this->config);
         (new HCScriptsFormsController($this->helper))->generate($this->config);

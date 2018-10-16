@@ -8,3 +8,4 @@ Route::get('list', '{serviceName}Controller@getList')
 
 Route::get('options', '{serviceName}Controller@getOptions')
                     ->name('admin.api.{routeName}.list');
+

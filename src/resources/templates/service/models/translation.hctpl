@@ -27,9 +27,37 @@
 
 declare(strict_types = 1);
 
-Route::domain(config('hc.admin_domain'))
-    ->prefix(config('hc.admin_url'))
-    ->namespace('Admin')
-    ->middleware(['web', 'auth'])
-    ->group(function () {
-    {index}{actions}});
+namespace {namespace};
+
+use HoneyComb\Starter\Models\HCModel;
+{useNamespaces}
+
+/**
+ * Class {model}
+ * @package {namespace}
+ */
+class {model} extends HCModel
+{
+    /**
+     * Primary key field
+     *
+     * @var string
+     */
+    protected $primaryKey = 'count';
+
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = '{table}';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        {fields}
+    ];
+}

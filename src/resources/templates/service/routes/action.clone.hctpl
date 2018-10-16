@@ -1,3 +1,4 @@
 Route::post('clone', '{serviceName}Controller@clone')
     ->name('admin.api.{routeName}.clone')
     ->middleware('acl:{aclPrefix}_admin_clone');
+

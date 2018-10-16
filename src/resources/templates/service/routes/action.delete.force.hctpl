@@ -1,3 +1,4 @@
 Route::delete('force', '{serviceName}Controller@deleteForce')
     ->name('admin.api.{routeName}.delete.force')
     ->middleware('acl:{aclPrefix}_admin_delete_force');
+

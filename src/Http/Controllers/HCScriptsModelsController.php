@@ -83,7 +83,7 @@ class HCScriptsModelsController
             'namespace' => $this->config->getPackageConfig()->getNamespaceForModel(),
             'model' => $model['modelName'],
             'table' => $model['tableName'],
-            "fields" => '"' . implode('", "', $model['fieldsModel']) . '"',
+            "fields" => '\'' . implode('\', \'', $model['fieldsModel']) . '\'',
             'useNamespaces' => $this->getNameSpaces($model['use']),
             'useClassNames' => $this->getClassNames($model['use']),
             'with' => "",
@@ -99,7 +99,9 @@ class HCScriptsModelsController
             $this->generateRepository($data);
         }
 
-        $this->helper->createFileFromTemplate($destination, 'service/models/' . $this->getModelType($model['use']) . '.hctpl', $data);
+        $this->helper->createFileFromTemplate($destination,
+            'service/models/' . $this->getModelType($model['use'], $this->config->getActions()->getAdmin()) . '.hctpl',
+            $data);
     }
 
     /**
@@ -244,14 +246,22 @@ class HCScriptsModelsController
      * @param array $use
      * @return string
      */
-    private function getModelType(array $use): string
+    private function getModelType(array $use, array $actions): string
     {
         if (in_array('uuid', $use)) {
             return 'uuid';
         }
 
+        if (in_array('translation', $use)) {
+            return 'translation';
+        }
+
         if (in_array('conn', $use)) {
             return 'base';
+        }
+
+        if (in_array('delete_force', $actions)) {
+            return 'soft_uuid';
         }
 
         return 'uuid';
