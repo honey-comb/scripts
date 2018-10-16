@@ -2,14 +2,26 @@
  * Update record
  *
  * @param {request} $request
- * @param string $id
+ * @param string $recordId
  * @return JsonResponse
  */
-public function update({request} $request, string $id): JsonResponse
+public function store({request} $request, string $recordId): JsonResponse
 {
-    $model = $this->service->getRepository()->findOneBy(['id' => $id]);
-    $model->update($request->getRecordData());
-    $model->updateTranslations($request->getTranslations());
+    $this->connection->beginTransaction();
 
-    return $this->response->success("Created");
+    try {
+        $record = $this->service->getRepository()->findOrFail($recordId);
+        $record->update($request->getRecordData());
+        $record->updateTranslations($request->getTranslations());
+
+        $this->connection->commit();
+    } catch (\Throwable $exception) {
+        $this->connection->rollBack();
+
+        report($exception);
+
+        return $this->response->error($exception->getMessage());
+    }
+
+    return $this->response->success('Updated');
 }

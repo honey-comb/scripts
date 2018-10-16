@@ -110,7 +110,7 @@ class {serviceName}Controller extends HCBaseController
     */
    public function getById (string $id): ? {serviceName}
    {
-       return $this->service->getRepository()->findOneBy(['id' => $id]);
+       return $this->service->getRepository()->findOrFail($id);
    }
 
    /**

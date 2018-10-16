@@ -1,6 +1,8 @@
 /**
  * Soft deleting records
+ *
  * @param $ids
+ * @return void
  */
 public function deleteSoft(array $ids): void
 {

@@ -5,18 +5,20 @@
  * @return JsonResponse
  * @throws \Throwable
  */
-public function store ({request} $request): JsonResponse
+public function store({request} $request): JsonResponse
 {
     $this->connection->beginTransaction();
 
     try {
-        $model = $this->service->getRepository()->create($request->getRecordData());
+        $record = $this->service->getRepository()->create($request->getRecordData());
 
         $this->connection->commit();
-    } catch (\Throwable $e) {
+    } catch (\Throwable $exception) {
         $this->connection->rollBack();
 
-        return $this->response->error($e->getMessage());
+        report($exception);
+
+        return $this->response->error($exception->getMessage());
     }
 
     return $this->response->success("Created");
