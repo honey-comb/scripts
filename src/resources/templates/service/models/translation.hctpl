@@ -29,9 +29,7 @@ declare(strict_types = 1);
 
 namespace {namespace};
 
-use HoneyComb\Starter\Models\HCModel;
-{useNamespaces}
-
+use HoneyComb\Starter\Models\HCModel;{useNamespaces}
 /**
  * Class {model}
  * @package {namespace}

@@ -40,6 +40,10 @@ use Illuminate\Database\Connection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 
+/**
+ * Class {serviceName}Controller
+ * @package {namespace}
+ */
 class {serviceName}Controller extends HCBaseController
 {
     use HCAdminListHeaders;

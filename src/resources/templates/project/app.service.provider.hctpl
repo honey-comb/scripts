@@ -31,6 +31,10 @@ namespace App\Providers;
 
 use HoneyComb\Starter\Providers\HCStarterServiceProvider;
 
+/**
+ * Class AppServiceProvider
+ * @package App\Providers
+ */
 class AppServiceProvider extends HCStarterServiceProvider
 {
     /**

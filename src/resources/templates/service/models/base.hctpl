@@ -29,16 +29,13 @@ declare(strict_types = 1);
 
 namespace {namespace};
 
-use HoneyComb\Starter\Models\HCModel;
-{useNamespaces}
-
+use HoneyComb\Starter\Models\HCModel;{useNamespaces}
 /**
  * Class {model}
  * @package {namespace}
  */
 class {model} extends HCModel
-{
-    {useClassNames}
+{{useClassNames}
 
     /**
      * The database table used by the model.

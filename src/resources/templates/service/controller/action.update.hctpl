@@ -4,6 +4,7 @@
  * @param {request} $request
  * @param string $recordId
  * @return JsonResponse
+ * @throws \Exception
  */
 public function update({request} $request, string $recordId): JsonResponse
 {

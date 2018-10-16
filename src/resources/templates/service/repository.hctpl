@@ -34,6 +34,10 @@ use {requestNs}\{model}Request;
 use HoneyComb\Starter\Repositories\Traits\HCQueryBuilderTrait;
 use HoneyComb\Starter\Repositories\HCBaseRepository;
 
+/**
+ * Class {repository}
+ * @package {repositoryNs}
+ */
 class {repository} extends HCBaseRepository
 {
     use HCQueryBuilderTrait;

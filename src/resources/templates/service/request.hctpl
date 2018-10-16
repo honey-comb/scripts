@@ -31,6 +31,10 @@ namespace {namespace};
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class {serviceName}Request
+ * @package {namespace}
+ */
 class {serviceName}Request extends FormRequest
 {
     /**
