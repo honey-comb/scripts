@@ -64,7 +64,7 @@ class HCScriptsControllerController
             'serviceNs' => $this->config->getPackageConfig()->getNamespaceForService(),
             'serviceName' => $this->config->getServiceName(),
             'serviceNamespace' => $this->config->getPackageConfig()->getNamespaceForService(true),
-            'translationLabel' => $this->config->getTranslation()->getLabelFieldForForm('page_title'),
+            'translationLabel' => $this->config->getTranslation()->getLabelFieldForForm($this->config->getUrl()),
             'urlName' => $this->config->getUrlName(),
             'formName' => $this->config->getRouteName(),
             'actionPrefix' => $this->config->getAclPrefix(),

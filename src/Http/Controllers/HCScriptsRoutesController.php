@@ -259,7 +259,6 @@ class HCScriptsRoutesController
         $packageConfig = $this->config->getPackageConfig();
 
         $permission = [
-
             'name' => 'acl.' . $this->config->getRouteName(),
             'controller' => $packageConfig->getNamespaceForAdminController(true),
             'actions' => $this->permissions,
@@ -271,7 +270,6 @@ class HCScriptsRoutesController
             $this->config->updatePackageRoutes($this->getRoutePath('Admin'));
 
             $adminMenu = [
-
                 'route' => 'admin.' . $this->config->getRouteName() .'.index',
                 'parent' => 'admin.index',
                 'translation' => $this->config->getTranslation()->getLabelFieldForForm('page_title'),

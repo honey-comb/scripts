@@ -80,13 +80,13 @@ class HCScriptsFormsController
                 $fieldData['field'] = $field->Field;
 
                 if ($field->Null == "NO") {
-                    $fieldData['required'] = '"required" => 1,';
+                    $fieldData['required'] = '\'required\' => 1,';
                 } else {
                     $fieldData['required'] = "";
                 }
 
-                $fieldData['type'] = '"type" => ' . $this->getFieldType($field->Type) . ',';
-                $fieldData['label'] = '"label" => trans("' . $this->config->getTranslation()->getLabelFieldForForm($field->Field) . '"),';
+                $fieldData['type'] = '\'type\' => ' . $this->getFieldType($field->Type) . ',';
+                $fieldData['label'] = '\'label\' => trans(\'' . $this->config->getTranslation()->getLabelFieldForForm($field->Field) . '\'),';
 
                 $structure .= $this->helper->createFileFromTemplate("", "service/forms/field.hctpl", $fieldData, false);
             }
@@ -118,19 +118,19 @@ class HCScriptsFormsController
                 return '"textArea"';
             }
 
-            return '"singleLine"';
+            return '\'singleLine\'';
         }
 
         if (strpos($type, 'int') !== false) {
-            return '"number"';
+            return '\'number\'';
         }
 
         if (strpos($type, 'text') !== false) {
-            return '"richText"';
+            return '\'richText\'';
         }
 
         if (strpos($type, 'date') !== false || strpos($type, 'time') !== false) {
-            return '"dateTimePicker"';
+            return '\'dateTimePicker\'';
         }
 
         return "";

@@ -112,7 +112,7 @@ class HCTranslationsResource extends ResourceCollection
             $translations = "";
 
             foreach ($translation as $transKey => $value) {
-                $translations .= '"' . $transKey . '" => "' . $value . '",';
+                $translations .= '\'' . $transKey . '\' => \'' . $value . '\',';
             }
 
             $this->helper->createFileFromTemplate($this->getTranslationDestination($key), "service/translations.hctpl",
