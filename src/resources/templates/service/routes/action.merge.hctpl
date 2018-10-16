@@ -1,4 +1,4 @@
 Route::post('merge', '{serviceName}Controller@merge')
     ->name('admin.api.{routeName}.merge')
-    ->middleware('acl:{aclPrefix}_admin_merge');
+    ->middleware('acl:{aclPrefix}_merge');
 

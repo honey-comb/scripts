@@ -147,7 +147,7 @@ class HCServiceResource extends ResourceCollection
         $this->icon = $data['icon'];
         $this->url = $data['url'];
         $this->routeName = $this->helper->stringWithDots(strtolower($this->url));
-        $this->aclPrefix = $this->helper->stringWithUnderscore(strtolower($this->directory . '_' . $this->routeName));
+        $this->aclPrefix = $this->helper->stringWithUnderscore(strtolower($this->directory . '_' . $this->routeName). '_admin');
         $this->serviceName = $data['serviceName'];
 
         if (in_array("new", $data["forms"])) {
@@ -312,6 +312,7 @@ class HCServiceResource extends ResourceCollection
     public function updatePackagePermissions(array $data)
     {
         $config = $this->helper->getHCConfig($this->getDirectory());
+
         $existing = false;
 
         if (isset($config['acl']['permissions']['name'])) {

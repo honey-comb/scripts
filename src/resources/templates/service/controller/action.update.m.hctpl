@@ -5,7 +5,7 @@
  * @param string $recordId
  * @return JsonResponse
  */
-public function store({request} $request, string $recordId): JsonResponse
+public function update({request} $request, string $recordId): JsonResponse
 {
     $this->connection->beginTransaction();
 
