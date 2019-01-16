@@ -41,7 +41,10 @@ or
 Honeycomb Service in honeycomb terms means Routes, Models, Controllers, Services, Repositories, Forms, Requests as one which can be access via url in admin panel.
 
 - create **_hc_scripts_configuration folder** in project root directory
-- create config.json file i.e. **w_rewards.json** with content:
+- create config.json file i.e. **w_rewards.json**
+- run `php artisan hc-make:service` it will generate files from given configuration (looks for .json files). It generates 1 file per run and add `.done` extension after success.
+
+**w_rewads.json example:**
 ```
 {
   "directory": "",
@@ -84,14 +87,12 @@ Honeycomb Service in honeycomb terms means Routes, Models, Controllers, Services
 - forms - dont change
 - optionLabelList - dont change
 - models - list of models which will be generated. There always must be a model to generate a service. (database table must exist)
- - default - 1 means it will be used for controller and resositry to auto generate default model
- - modelName better must be the same as `serviceName`
- - respository - dont change
- - use - if `multiLanguage` is set to 1 then write `translations` option otherwise leave empty array `"use":[]`
- you can add multiple models if you want. But they cannot be `default:1`.
+   - default - 1 means it will be used for controller and resositry to auto generate default model
+   - modelName better must be the same as `serviceName`
+   - respository - dont change
+   - use - if `multiLanguage` is set to 1 then write `translations` option otherwise leave empty array `"use":[]`
+   you can add multiple models if you want. But they cannot be `default:1`.
 
-- actions - is related to admin `ACL`. Here listed all needed actions. You can add additional actions if you need.  
-
-- run `php artisan hc-make:service` it will generated files from given configuration (looks for .json files). It generates 1 file per run and add `.done` extension after success.
+- actions - is related to admin `ACL`. Here listed all needed actions. You can add additional actions if you need.
 
  
